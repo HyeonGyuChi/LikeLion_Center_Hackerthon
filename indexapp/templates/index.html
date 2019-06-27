@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block contents %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+<div class="container">
+    <h1>hi</h1>
+    <a href="{% url 'resume_form' %}">이력서 만들기 폼</a>
+</div>
+</body>
+</html>
+{% endblock %}

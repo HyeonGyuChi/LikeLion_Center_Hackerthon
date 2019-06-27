@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block contents %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h2>Sign up</h2>
+    <form method="POST" action="{% url 'resume_form' %}">
+        {% csrf_token %}
+        Username:
+        <br>
+        <input name="writer_name" type="text">
+        <br>
+        <input name="writer_address" type="text">
+        <br>
+        <input name="writer_phone" type="tel">
+        <br>
+        <input name="writer_email" type="email">
+        <br><br>
+        <input type="submit" class="btn btn-light" value="make resume">
+    </form>
+</div>
+</body>
+</html>
+{% endblock %}

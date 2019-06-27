@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        #nav-container {
+            min-height: 90%;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .content {
+            min-height: calc(75vh - 110px);
+        }
+
+        .footer-container {
+            position: relative;
+            margin: 50 auto -110px;
+        }
+
+        #footer-link {
+            color: black;
+            text-decoration: none;
+        }
+
+        #footer-link:hover {
+            background-color: #FF6F61;
+            color: white;
+        }
+
+        #footer-wrapper {
+            text-align: center;
+        }
+
+        .list {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'index' %}">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Word count </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About </a>
+            </li>
+        </ul>
+        {% if user.is_authenticated %}
+        <div class="nav-item text-white">환영합니다. {{ user.username }}님!</div>
+        {% endif %}
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                Menu
+            </button>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                {% if user.is_authenticated %}
+                <button class="dropdown-item" type="button" onclick="location.href='#'">글쓰기</button>
+                <button class="dropdown-item" onclick="javascript:{document.getElementById('logout').submit()}">Log out
+                </button>
+                <form id="logout" method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %} <input type="hidden"/>
+                </form>
+                <button class="dropdown-item" type="button" onclick="location.href='{% url 'admin_page' %}'">Admin
+                    page
+                </button>
+                {% else %}
+                <button class="dropdown-item" type="button" onclick="location.href='{% url 'signup' %}'">Sign up
+                </button>
+                <button class="dropdown-item" type="button" onclick="location.href='{% url 'login' %}'">Log in</button>
+                {% endif %}
+            </div>
+        </div>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<div class="content" id="nav-container">
+    <br><br><br>
+    {% block contents %}
+    {% endblock %}
+</div>
+<div class="footer-container">
+    <footer>
+        <div id="footer-wrapper">
+            <ul class="list">
+                <li>Contact information: <a id="footer-link" href="https://github.com/qwlake">github.com/qwlake</a></li>
+                <li>E-mail: qwlake@gmail.com</li>
+                <li>Copy right 2019, by JungWoo.</li>
+            </ul>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
