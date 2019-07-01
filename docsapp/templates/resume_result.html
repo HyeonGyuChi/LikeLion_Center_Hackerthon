@@ -9,8 +9,11 @@
 </head>
 <body>
 <div class="container">
-    <iframe src="">
-    </iframe>
+    <P>결과:</P>
+    {% for path in export_paths %}
+        <iframe width=550 height=770 src="{% static path %}">
+        </iframe>
+    {% endfor %}
 </div>
 </body>
 </html>
