@@ -9,8 +9,10 @@
 </head>
 <body>
 <div class="container">
-    <iframe src="">
-    </iframe>
+    {% for path in export_paths %}
+        <iframe row=500 col=1000 src="{% static '{{path}}' %}">
+        </iframe>
+    {% endfor %}
 </div>
 </body>
 </html>
