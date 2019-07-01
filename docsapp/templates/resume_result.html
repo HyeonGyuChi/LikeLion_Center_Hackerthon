@@ -9,8 +9,9 @@
 </head>
 <body>
 <div class="container">
+    <P>결과:</P>
     {% for path in export_paths %}
-        <iframe row=500 col=1000 src="{% static '{{path}}' %}">
+        <iframe width=550 height=770 src="{% static path %}">
         </iframe>
     {% endfor %}
 </div>

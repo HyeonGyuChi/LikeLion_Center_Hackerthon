@@ -18,4 +18,5 @@ from . import views
 
 urlpatterns = [
     path('resume_form', views.resume_form, name="resume_form"),
+    # path('resume_result/<username>', views.resume_result, name="resume_result"),
 ]

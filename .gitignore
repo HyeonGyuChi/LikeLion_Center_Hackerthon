@@ -2,8 +2,7 @@
 # Edit at https://www.gitignore.io/?templates=django,python,pycharm+all,visualstudiocode
 
 ### venv ###
-venv-*/
-*-venv/
+*venv*/
 
 ### Django ###
 *.log

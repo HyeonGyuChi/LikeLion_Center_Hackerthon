@@ -10,11 +10,6 @@ from django.core.serializers.json import DjangoJSONEncoder
 import json
 from . import resume_config
 
-# def json_default(value): 
-#     if isinstance(value, datetime.datetime): 
-#         return value.strftime('%Y/%m/%d') 
-#     raise TypeError('not JSON serializable') 
-
 # 웹페이지 서버에서 Google drive api server와 통신하기 위한 Oauth 2.0 인증
 def auth():
     # If modifying these scopes, delete the file token.pickle.
@@ -71,7 +66,6 @@ def docs_merge(creds, DOCUMENT_ID, info):
                                             info['writer_address'].value(), 
                                             info['writer_phone'].value(), 
                                             info['writer_email'].value())
-    # requests = json.dumps(requests, indent=4, sort_keys=True, default=str)
     replies = service.documents().batchUpdate(
         documentId=DOCUMENT_ID, body={'requests': requests}).execute()
     result = merge_check(replies)
@@ -95,7 +89,7 @@ def drive_export(creds, FILE_ID):
 
     orig_file = service.files().get(fileId=FILE_ID).execute()
     export_file_name = orig_file.get('name') + '.pdf'
-    export_path = 'downloads/' + export_file_name    # 'downloads/export_file_name'
+    export_path = 'static/docsapp/' + export_file_name    # 'static/docsapp/export_file_name'
 
     fh = io.FileIO(export_path, 'wb')
     downloader = MediaIoBaseDownload(fh, request)

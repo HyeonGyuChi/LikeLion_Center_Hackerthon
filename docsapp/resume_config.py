@@ -1,5 +1,6 @@
 # 이력서 템플릿. google drive에 존재하는 file의 ids.
-files_ids = {"resume-test-1":"193nzLRXXCc-xCQTe6moQ6LH99H9UB5BFvwB7DYOEq4A",}
+files_ids = {"resume-test-1":"193nzLRXXCc-xCQTe6moQ6LH99H9UB5BFvwB7DYOEq4A",
+             "resume-test-2":"1rww_2poRHg6nYGWroU1cUsmo0zp1wXJUywdMCqrTqN8"}
 
 '''
 {{date}}
