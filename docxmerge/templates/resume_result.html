@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block contents %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+<div class="container">
+    <P>결과:</P>
+    {% for path in export_paths %}
+        <iframe width=550 height=770 src="{% static path %}">
+        </iframe>
+    {% endfor %}
+</div>
+</body>
+</html>
+{% endblock %}

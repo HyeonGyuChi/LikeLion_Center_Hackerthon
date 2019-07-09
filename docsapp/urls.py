@@ -1,4 +1,4 @@
-"""lion URL Configuration
+"""project URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
@@ -18,5 +18,5 @@ from . import views
 
 urlpatterns = [
     path('resume_form', views.resume_form, name="resume_form"),
-    # path('resume_result/<username>', views.resume_result, name="resume_result"),
+    # path('resume_result/', views.resume_result, name="resume_result"),
 ]

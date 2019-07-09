@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'indexapp',
     'docsapp',
-    'accountsapp'
+    'accountsapp',
+    'docxmerge',
 ]
 
 MIDDLEWARE = [
