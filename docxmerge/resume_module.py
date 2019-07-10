@@ -35,6 +35,8 @@ def resume(info, username):
         # User 폴더가 없으면(신규 유저이면) User의 폴더 생성
         if not os.path.isdir(user_path):
             os.mkdir(user_path)
+            os.mkdir(user_path + '/docx')
+            os.mkdir(user_path + '/pdf')
 
         # docx 파일 템플릿 리스트
         templates_path = "static/resume_templates/"
@@ -46,8 +48,9 @@ def resume(info, username):
         for template_name in file_list:
 
             # 생성될 파일 경로 및 이름
-            # 'static/resume_users/user_path/create_time-template_name'
-            new_file_name = user_path + "/" + create_time + "-" + template_name
+            # 'static/resume_users/user_path/docx/create_time-template_name'
+            new_file_name = user_path + "/docx/" + create_time + "-" + template_name
+            pdf_file_name = user_path + "/pdf/" + create_time + "-" + template_name[:template_name.rfind(".")] + '.pdf'
 
             # 병합될 파일 이름이 이미 존재한다면(너무 빠른 시간 안에 user가 다시 요청한 상태) 예외 발생
             if os.path.isfile(new_file_name):
@@ -79,10 +82,9 @@ def resume(info, username):
             template_docx.close()
             new_docx.close()
 
-            # static/resume_templates/test.docx
-            pdf_name = new_file_name[:new_file_name.rfind(".")] + '.pdf'
-            docx_to_pdf(new_file_name, pdf_name)
-            export_list.append("../" + pdf_name)
+            # pdf로 변환 및 static 경로 저장
+            docx_to_pdf(new_file_name, pdf_file_name)
+            export_list.append("../" + pdf_file_name)
     except Exception as ex:
         raise ex
     return export_list
