@@ -1,15 +1,33 @@
 import os, zipfile
 from datetime import datetime
+import comtypes.client
+from win32com.client import pythoncom
 
 from . import resume_config
 
+def docx_to_pdf(docx, pdf):
+    pythoncom.CoInitialize()
+    wdFormatPDF = 17
+
+    in_file = os.path.abspath(docx)
+    out_file = os.path.abspath(pdf)
+
+    print(in_file)
+    print(out_file)
+
+    word = comtypes.client.CreateObject('Word.Application')
+    doc = word.Documents.Open(in_file)
+    doc.SaveAs(out_file, FileFormat=wdFormatPDF)
+    doc.Close()
+    word.Quit()
+
 # Main
-def resume(info, writer_id):
+def resume(info, username):
     date = datetime.now().strftime("%Y. %m. %d.")
     replace_text = resume_config.requests(date, info)
 
     try:
-        user_path = 'static/resume_users/' + str(writer_id)
+        user_path = 'static/resume_users/' + str(username)
 
         # 작업 실행 시간
         create_time = datetime.today().strftime("%Y%m%d%H%M%S")
@@ -30,7 +48,6 @@ def resume(info, writer_id):
             # 생성될 파일 경로 및 이름
             # 'static/resume_users/user_path/create_time-template_name'
             new_file_name = user_path + "/" + create_time + "-" + template_name
-            export_list.append("../" + new_file_name)
 
             # 병합될 파일 이름이 이미 존재한다면(너무 빠른 시간 안에 user가 다시 요청한 상태) 예외 발생
             if os.path.isfile(new_file_name):
@@ -59,9 +76,13 @@ def resume(info, writer_id):
                 if not file.filename == "word/document.xml":
                     new_docx.writestr(file.filename, template_docx.read(file))
             new_docx.write("word/temp.xml", "word/document.xml")
-
             template_docx.close()
             new_docx.close()
+
+            # static/resume_templates/test.docx
+            pdf_name = new_file_name[:new_file_name.rfind(".")] + '.pdf'
+            docx_to_pdf(new_file_name, pdf_name)
+            export_list.append("../" + pdf_name)
     except Exception as ex:
         raise ex
     return export_list
