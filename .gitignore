@@ -5,7 +5,7 @@
 *venv*/
 
 ### django files ###
-resume_users/
+*/resume_users/
 
 ### Django ###
 *.log
