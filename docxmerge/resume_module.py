@@ -4,17 +4,12 @@ from datetime import datetime
 from . import resume_config
 
 # Main
-def resume(writer_id, info):
-    date = datetime.now().strftime("%y/%m/%d")
-    replace_text = resume_config.requests(
-        date, 
-        info['writer_name'].value(),
-        info['writer_address'].value(), 
-        info['writer_phone'].value(), 
-        info['writer_email'].value(),)
+def resume(info, writer_id):
+    date = datetime.now().strftime("%Y. %m. %d.")
+    replace_text = resume_config.requests(date, info)
 
     try:
-        user_path = 'resume_users/' + writer_id
+        user_path = 'static/resume_users/' + str(writer_id)
 
         # 작업 실행 시간
         create_time = datetime.today().strftime("%Y%m%d%H%M%S")
@@ -34,11 +29,8 @@ def resume(writer_id, info):
 
             # 생성될 파일 경로 및 이름
             # 'static/resume_users/user_path/create_time-template_name'
-            new_file_name = 'static/resume_users/' + user_path + "/" + create_time + "-" + template_name
+            new_file_name = user_path + "/" + create_time + "-" + template_name
             export_list.append("../" + new_file_name)
-
-            # # 생성될 파일 경로 및 이름
-            # new_file_name = user_path + "/" + create_time + "-" + template_name
 
             # 병합될 파일 이름이 이미 존재한다면(너무 빠른 시간 안에 user가 다시 요청한 상태) 예외 발생
             if os.path.isfile(new_file_name):

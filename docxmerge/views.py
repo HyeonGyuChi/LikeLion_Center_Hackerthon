@@ -7,8 +7,8 @@ from .resume_module import resume
 def resume_form(request):
     if request.method == 'POST':
         form = ResumeForm(request.POST)
-        user_id = User.objects.get(username = request.user.get_username())
-        user_id = request.POST.get('username')
+        user_id = User.objects.get(username=request.user.get_username())
+        # user_id = request.POST.get('usesrname')
         export_paths = resume(form, user_id)
         return render(request, 'resume_result.html', {'export_paths':export_paths})
     else:
