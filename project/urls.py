@@ -24,7 +24,8 @@ urlpatterns = [
     path('admin/', indexapp.views.admin_page, name='admin_page'),
     path('indexapp/', include('indexapp.urls')),
     path('accountsapp/', include('accountsapp.urls')),
-    path('docsapp/', include('docsapp.urls')),
+    path('docxmerge/', include('docxmerge.urls')),
+    # path('docsapp/', include('docsapp.urls')),
     path('', indexapp.views.index, name='index'),
 ]
 

@@ -4,6 +4,9 @@
 ### venv ###
 *venv*/
 
+### django files ###
+*/resume_users/
+
 ### Django ###
 *.log
 *.pot

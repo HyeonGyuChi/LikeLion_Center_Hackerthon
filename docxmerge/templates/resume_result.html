@@ -9,10 +9,10 @@
 </head>
 <body>
 <div class="container">
-    <P>결과:</P>
+    <div>결과:</div>
     {% for path in export_paths %}
-        <iframe width=550 height=770 src="{% static path %}">
-        </iframe>
+        <!-- <iframe width=550 height=770 src="https://docs.google.com/gview?url=http://localhost:8000{% static path %}&embedded=true"></iframe> -->
+        <iframe width=550 height=770 src="{% static path %}"></iframe>
     {% endfor %}
 </div>
 </body>
