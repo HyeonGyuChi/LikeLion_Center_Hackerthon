@@ -22,7 +22,7 @@ def docx_to_pdf(docx, pdf):
     word.Quit()
 
 # Main
-def resume(info, username):
+def merge(info, username):
     date = datetime.now().strftime("%Y. %m. %d.")
     replace_text = resume_config.requests(date, info)
 
@@ -35,7 +35,9 @@ def resume(info, username):
         # User 폴더가 없으면(신규 유저이면) User의 폴더 생성
         if not os.path.isdir(user_path):
             os.mkdir(user_path)
+        if not os.path.isdir(user_path + '/docx'):
             os.mkdir(user_path + '/docx')
+        if not os.path.isdir(user_path + '/pdf'):
             os.mkdir(user_path + '/pdf')
 
         # docx 파일 템플릿 리스트

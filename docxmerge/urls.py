@@ -18,4 +18,5 @@ from . import views
 
 urlpatterns = [
     path('resume_form/', views.resume_form, name="resume_form"),
+    path('resume_detail/<int:resume_id>', views.resume_detail, name="resume_detail"),
 ]
