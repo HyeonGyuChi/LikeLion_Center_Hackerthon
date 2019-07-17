@@ -5,6 +5,11 @@ from win32com.client import pythoncom
 
 from . import resume_config
 
+def handle_uploaded_file(f):
+    with open('static/resume_templates/' + f.name + '.pdf', 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+
 def docx_to_pdf(docx, pdf):
     pythoncom.CoInitialize()
     wdFormatPDF = 17
@@ -33,6 +38,8 @@ def merge(info, username):
         create_time = datetime.today().strftime("%Y%m%d%H%M%S")
 
         # User 폴더가 없으면(신규 유저이면) User의 폴더 생성
+        if not os.path.isdir('static/resume_users/'):
+            os.mkdir('static/resume_users/')
         if not os.path.isdir(user_path):
             os.mkdir(user_path)
         if not os.path.isdir(user_path + '/docx'):
@@ -91,13 +98,13 @@ def merge(info, username):
         raise ex
     return export_list
 
-if __name__ == '__main__':
-    date = datetime.now().strftime("%y/%m/%d")
-    writer_id = "test-id1"
-    replace_text = config.requests(
-        date, 
-        '오정우', 
-        '강원도 춘천시 강원대학길1 공6호관', 
-        '010-4820-1442', 
-        'qwlake@gmail.com',)
-    resume(writer_id, replace_text)
+# if __name__ == '__main__':
+#     date = datetime.now().strftime("%y/%m/%d")
+#     writer_id = "test-id1"
+#     replace_text = config.requests(
+#         date, 
+#         '오정우', 
+#         '강원도 춘천시 강원대학길1 공6호관', 
+#         '010-4820-1442', 
+#         'qwlake@gmail.com',)
+#     resume(writer_id, replace_text)

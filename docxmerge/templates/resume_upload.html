@@ -5,14 +5,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>Detail</title>
 </head>
 <body>
 <div class="container">
-    <h1>hi</h1>
-    <a href="{% url 'docxmerge:form' %}">이력서 만들기 폼</a>
-    <br>
-    <a href="{% url 'docxmerge:upload' %}">이력서 템플릿 업로드</a>
+    <form method="post" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
 </div>
 </body>
 </html>
