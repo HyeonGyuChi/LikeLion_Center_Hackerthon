@@ -28,14 +28,14 @@ def merge(info, username):
     replace_text = resume_config.requests(date, info)
 
     try:
-        user_path = 'static/resume_users/' + str(username)
+        user_path = 'media/resume_users/' + str(username)
 
         # 작업 실행 시간
         create_time = datetime.today().strftime("%Y%m%d%H%M%S")
 
         # User 폴더가 없으면(신규 유저이면) User의 폴더 생성
-        if not os.path.isdir('static/resume_users/'):
-            os.mkdir('static/resume_users/')
+        if not os.path.isdir('media/resume_users/'):
+            os.mkdir('media/resume_users/')
         if not os.path.isdir(user_path):
             os.mkdir(user_path)
         if not os.path.isdir(user_path + '/docx'):
@@ -46,10 +46,8 @@ def merge(info, username):
         # docx 파일 템플릿 리스트
         # media/resume_templates/template.docx
         template_url_list = []
-        resume_list = []
         for res in Resume.objects.all():
             template_url_list.append(res.file.url[1:])
-            resume_list.append(res)
 
         template_name_list = []
         new_name_list = []
@@ -62,7 +60,7 @@ def merge(info, username):
         for template_name, template_url in zip(template_name_list, template_url_list):
 
             # 생성될 파일 경로 및 이름
-            # 'static/resume_users/{user_path}/docx/{create_time}-{template_name}'
+            # 'media/resume_users/{user_path}/docx/{create_time}-{template_name}'
             new_name = user_path + "/docx/" + create_time + "-" + template_name
             pdf_name = user_path + "/pdf/" + create_time + "-" + template_name[:template_name.rfind(".")] + '.pdf'
             new_name_list.append(new_name)
@@ -107,7 +105,7 @@ def merge(info, username):
 
     except Exception as ex:
         raise ex
-    return export_url_list, resume_list
+    return export_url_list
 
 # if __name__ == '__main__':
 #     date = datetime.now().strftime("%y/%m/%d")
