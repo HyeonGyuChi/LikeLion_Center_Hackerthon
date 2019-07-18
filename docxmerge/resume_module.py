@@ -6,11 +6,6 @@ from win32com.client import pythoncom
 from .models import Resume
 from . import resume_config
 
-def handle_uploaded_file(f):
-    with open('static/resume_templates/' + f.name + '.pdf', 'wb+') as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
-
 def docx_to_pdf(docx, pdf):
     pythoncom.CoInitialize()
     wdFormatPDF = 17
@@ -51,8 +46,10 @@ def merge(info, username):
         # docx 파일 템플릿 리스트
         # media/resume_templates/template.docx
         template_url_list = []
+        resume_list = []
         for res in Resume.objects.all():
             template_url_list.append(res.file.url[1:])
+            resume_list.append(res)
 
         template_name_list = []
         new_name_list = []
@@ -110,7 +107,7 @@ def merge(info, username):
 
     except Exception as ex:
         raise ex
-    return export_url_list
+    return export_url_list, resume_list
 
 # if __name__ == '__main__':
 #     date = datetime.now().strftime("%y/%m/%d")

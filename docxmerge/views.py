@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404, resolve_url
 from django.contrib.auth.models import User
 from .models import ResumeInfo, Resume
 from .forms import ResumeForm, UploadFileForm
-from .resume_module import merge, handle_uploaded_file
+from .resume_module import merge
 
 def resume_form(request):
     if request.method == 'POST':
@@ -16,19 +16,20 @@ def resume_form(request):
         else:
             print(form.errors)
         user_id = User.objects.get(username=request.user.get_username())
-        export_paths = merge(form, user_id)
-        return render(request, 'resume_result.html', {'export_paths':export_paths})
+        export_paths, resume_list = merge(form, user_id)
+        return render(request, 'resume_result.html', {'export_paths':export_paths, 'resume_list':resume_list})
         # return HttpResponse(resolve_url('docxmerge:resume_result', export_paths=export_paths))
     else:
         form = ResumeForm()
     return render(request, 'resume_form.html', {'form':form})
 
-# <!-- <a href="{% url 'docxmerge:detail' path.id %}">디테일 페이지</a> -->
-def resume_detail(request, resume_id):
-    # resolve_url('blog:post_detail', post.id) # '/blog/105/'
-    # resolve_url(post)
-    resume = get_object_or_404(Resume, pk=resume_id)
-    return render(request, 'resume_detail.html', {'resume': resume})
+def resume_detail(request):
+    if request.method == 'POST':
+        path = request.POST.get('path')
+        return render(request, 'resume_detail.html', {'path': path})
+    else:
+        path = request.GET.get('path')
+        return redirect('/' + path)
 
 def resume_upload(request):
     if request.method == 'POST':
