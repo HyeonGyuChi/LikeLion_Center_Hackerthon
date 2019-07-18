@@ -3,6 +3,7 @@ from datetime import datetime
 import comtypes.client
 from win32com.client import pythoncom
 
+from .models import Resume
 from . import resume_config
 
 def handle_uploaded_file(f):
@@ -48,28 +49,37 @@ def merge(info, username):
             os.mkdir(user_path + '/pdf')
 
         # docx 파일 템플릿 리스트
-        templates_path = "static/resume_templates/"
-        file_list = os.listdir(templates_path)
+        # media/resume_templates/template.docx
+        template_url_list = []
+        for res in Resume.objects.all():
+            template_url_list.append(res.file.url[1:])
 
-        # 생성된 파일 경로 리스트
-        export_list = []
+        template_name_list = []
+        new_name_list = []
+        pdf_name_list = []
+        export_url_list = []
 
-        for template_name in file_list:
+        for template_url in template_url_list:
+            template_name_list.append(template_url[template_url.rfind("/")+1:])
+
+        for template_name, template_url in zip(template_name_list, template_url_list):
 
             # 생성될 파일 경로 및 이름
-            # 'static/resume_users/user_path/docx/create_time-template_name'
-            new_file_name = user_path + "/docx/" + create_time + "-" + template_name
-            pdf_file_name = user_path + "/pdf/" + create_time + "-" + template_name[:template_name.rfind(".")] + '.pdf'
+            # 'static/resume_users/{user_path}/docx/{create_time}-{template_name}'
+            new_name = user_path + "/docx/" + create_time + "-" + template_name
+            pdf_name = user_path + "/pdf/" + create_time + "-" + template_name[:template_name.rfind(".")] + '.pdf'
+            new_name_list.append(new_name)
+            pdf_name_list.append(pdf_name)
 
             # 병합될 파일 이름이 이미 존재한다면(너무 빠른 시간 안에 user가 다시 요청한 상태) 예외 발생
-            if os.path.isfile(new_file_name):
+            if os.path.isfile(new_name):
                 raise FileExistsError
 
             # 병합될 파일
-            new_docx = zipfile.ZipFile(new_file_name, 'a')
+            new_docx = zipfile.ZipFile(new_name, 'a')
 
             # docx 파일 템플릿
-            template_docx = zipfile.ZipFile(templates_path + template_name)
+            template_docx = zipfile.ZipFile(template_url)
 
             # 템플릿 파일을 xml 포맷으로 압축 해제
             with open(template_docx.extract("word/document.xml"), encoding='UTF8') as temp_xml_file:
@@ -90,13 +100,17 @@ def merge(info, username):
             new_docx.write("word/temp.xml", "word/document.xml")
             template_docx.close()
             new_docx.close()
+        print("-----------------------------Merge complete------------------------------------")
 
+        for new_name, pdf_name in zip(new_name_list, pdf_name_list):
             # pdf로 변환 및 static 경로 저장
-            docx_to_pdf(new_file_name, pdf_file_name)
-            export_list.append("../" + pdf_file_name)
+            docx_to_pdf(new_name, pdf_name)
+            export_url_list.append("../" + pdf_name)
+        print("-------------------------Convert to pdf complete-------------------------------")
+
     except Exception as ex:
         raise ex
-    return export_list
+    return export_url_list
 
 # if __name__ == '__main__':
 #     date = datetime.now().strftime("%y/%m/%d")

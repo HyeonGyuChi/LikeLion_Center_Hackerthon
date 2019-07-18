@@ -13,7 +13,7 @@
     {% for path in export_paths %}
         <!-- <iframe width=550 height=770 src="https://docs.google.com/gview?url=http://localhost:8000{% static path %}&embedded=true"></iframe> -->
         <iframe width=550 height=770 src="{% static path %}"></iframe>
-        <a href="{% url 'docxmerge:detail' %}">디테일 페이지</a>
+
     {% endfor %}
 </div>
 </body>

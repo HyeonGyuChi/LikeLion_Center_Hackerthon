@@ -23,5 +23,5 @@ urlpatterns = [
     path('resume_upload/', views.resume_upload, name="upload"),
     path('resume_form/', views.resume_form, name="form"),
     # path('resume_result/', views.resume_result, name="resume_result"),
-    path('resume_detail/<int:resume_id>', views.resume_detail, name="detail"),
+    # path('resume_detail/<int:resume_id>', views.resume_detail, name="detail"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

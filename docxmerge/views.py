@@ -11,6 +11,7 @@ def resume_form(request):
         form = ResumeForm(request.POST)
         if form.is_valid():
             resume = form.save(commit=False)
+            resume.user = request.user
             resume.save()
         else:
             print(form.errors)
@@ -22,40 +23,20 @@ def resume_form(request):
         form = ResumeForm()
     return render(request, 'resume_form.html', {'form':form})
 
+# <!-- <a href="{% url 'docxmerge:detail' path.id %}">디테일 페이지</a> -->
 def resume_detail(request, resume_id):
     # resolve_url('blog:post_detail', post.id) # '/blog/105/'
     # resolve_url(post)
     resume = get_object_or_404(Resume, pk=resume_id)
     return render(request, 'resume_detail.html', {'resume': resume})
 
-# def upload_file(request):
-#     if request.method == 'POST':
-#         form = UploadFileForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             handle_uploaded_file(request.FILES['file'])
-#             return HttpResponseRedirect('/index/')
-#     else:
-#         form = UploadFileForm()
-#     return render(request, 'resume_upload.html', {'form': form})
-
-# def upload_file(request):
-#     if request.method == 'POST':
-#         form = ModelFormWithFileField(request.POST, request.FILES)
-#         if form.is_valid():
-#             # file is saved
-#             form.save()
-#             return HttpResponseRedirect('/success/url/')
-#     else:
-#         form = ModelFormWithFileField()
-#     return render(request, 'upload.html', {'form': form})
-
 def resume_upload(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            instance = Resume(file=request.FILES['file'])
+            instance = Resume(resume_name=request.POST['resume_name'], file=request.FILES['file'])
             instance.save()
-            return HttpResponseRedirect('')
+            return redirect(reverse('index'))
     else:
         form = UploadFileForm()
     return render(request, 'resume_upload.html', {'form': form})
