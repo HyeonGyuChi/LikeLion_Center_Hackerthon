@@ -25,8 +25,5 @@ urlpatterns = [
     path('indexapp/', include('indexapp.urls')),
     path('accountsapp/', include('accountsapp.urls')),
     path('docxmerge/', include('docxmerge.urls')),
-    # path('docsapp/', include('docsapp.urls')),
     path('', indexapp.views.index, name='index'),
-]
-
-# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

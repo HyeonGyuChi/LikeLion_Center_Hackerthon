@@ -5,14 +5,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>Result</title>
 </head>
 <body>
 <div class="container">
     <div>결과:</div>
-    {% for path in export_paths %}
-        <!-- <iframe width=550 height=770 src="https://docs.google.com/gview?url=http://localhost:8000{% static path %}&embedded=true"></iframe> -->
-        <iframe width=550 height=770 src="{% static path %}"></iframe>
+    {% for resume_merged in resume_merged_list %}
+        <div>
+            <!-- <iframe width=550 height=770 src="https://docs.google.com/gview?url=http://localhost:8000{% static path %}&embedded=true"></iframe> -->
+            <iframe width=550 height=770 src="{{resume_merged.pdf_file.url}}"></iframe>
+            <button class="dropdown-item" type="button" onclick="location.href='{% url 'docxmerge:detail' pk=resume_merged.pk %}'">자세히 보기</button>
+        </div>
     {% endfor %}
 </div>
 </body>

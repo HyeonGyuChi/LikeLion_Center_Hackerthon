@@ -1,6 +1,7 @@
 # LikeLion_Center_Hackerthon
 멋쟁이 사자처럼 7기 중앙 해커톤
-팀명(가제) : 옷입는 이력서
+
+서비스명 : 이옷 - 이력서 옷입히기
 
   
   
@@ -13,6 +14,8 @@ pip install django
 pip install comtypes
 
 pip install pypiwin32
+
+pip install pycryptodome
 
 ```
 

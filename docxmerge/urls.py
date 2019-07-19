@@ -13,9 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path, include
+from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
+app_name = 'docxmerge'
 urlpatterns = [
-    path('resume_form/', views.resume_form, name="resume_form"),
+    path('resume_upload/', views.resume_upload, name="upload"),
+    path('resume_make/', views.resume_make, name="make"),
+    path('resume_detail/<int:pk>', views.resume_detail, name="detail"),
+    path('resume_download/<int:pk>/<str:type>', views.resume_download, name="download"),
+    path('resume_like/', views.resume_like, name='like'),
 ]

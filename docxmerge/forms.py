@@ -1,8 +1,16 @@
 from django import forms
-from .models import Resume
+from .models import ResumeInfo, Resume
 
-class ResumeForm(forms.ModelForm):
+class ResumeInfoForm(forms.ModelForm):
+    class Meta:
+        model = ResumeInfo
+        fields = ['writer_name', 'writer_address', 'writer_phone', 'writer_email']
+
+class UploadFileForm(forms.ModelForm):
     class Meta:
         model = Resume
-        fields = ['date', 'writer_name', 'writer_address', 'writer_phone', 'writer_email']
-        date = forms.DateTimeField(input_formats=['%y. %m. %d.'])
+        fields = ('resume_name', 'file')
+
+    def __init__(self, *args, **kwargs):
+        super(UploadFileForm, self).__init__(*args, **kwargs)
+        self.fields['file'].required = False

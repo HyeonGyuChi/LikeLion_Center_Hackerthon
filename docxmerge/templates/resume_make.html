@@ -5,12 +5,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Form</title>
 </head>
 <body>
 <div class="container">
     <h2>정보 입력</h2>
-    <form method="POST" action="{% url 'resume_form' %}">
+    <form method="POST" action="{% url 'docxmerge:make' %}">
         {% csrf_token %}
         이름:
         <input name="writer_name" type="text">
