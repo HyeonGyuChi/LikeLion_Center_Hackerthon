@@ -12,3 +12,6 @@ def requests(date, info):
     }
     dic['{{date}}'] = date
     return dic
+
+# AES-256 secret key
+SECRET_KEY = "AKdfsrhtOWEad(*uJOEWLRSLDKFjowE8RU0(apfd"

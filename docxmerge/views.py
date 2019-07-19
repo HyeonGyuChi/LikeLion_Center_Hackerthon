@@ -1,7 +1,9 @@
+import os
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404, resolve_url
 from django.contrib.auth.models import User
+from wsgiref.util import FileWrapper
 from .models import ResumeInfo, Resume
 from .forms import ResumeForm, UploadFileForm
 from .resume_module import merge
@@ -16,8 +18,8 @@ def resume_form(request):
         else:
             print(form.errors)
         user_id = User.objects.get(username=request.user.get_username())
-        export_paths, resume_list = merge(form, user_id)
-        return render(request, 'resume_result.html', {'export_paths':export_paths, 'resume_list':resume_list})
+        export_paths = merge(form, user_id)
+        return render(request, 'resume_result.html', {'export_paths':export_paths})
         # return HttpResponse(resolve_url('docxmerge:resume_result', export_paths=export_paths))
     else:
         form = ResumeForm()
@@ -42,10 +44,16 @@ def resume_upload(request):
         form = UploadFileForm()
     return render(request, 'resume_upload.html', {'form': form})
 
-# def resume_download(request, resume_id):
-#     resume = get_object_or_404(Resume, id=resume_id)
-#     title = resume.title.encode('euc-kr')
-#     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-#     # response['Content-Disposition'] = 'attachment; filename=' + title
-#     # response.write(resume.contents.encode('euc-kr'))
-#     return response
+def resume_download(request, type):
+    if request.method == 'POST':
+        path = request.POST.get('path')
+        if type == 'docx':
+            path = path[:path.rfind(".")] + '.docx'
+            return redirect('../' + path)
+        else:
+            path = path[path.find("/")+1:]
+            path = os.path.abspath(path).replace('\\', '/')
+            wrapper = FileWrapper(open(path, 'rb'))
+            response = HttpResponse(wrapper, content_type='application/force-download')
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(path)
+            return response

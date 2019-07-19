@@ -15,6 +15,8 @@ pip install comtypes
 
 pip install pypiwin32
 
+pip install pycryptodome
+
 ```
 
   

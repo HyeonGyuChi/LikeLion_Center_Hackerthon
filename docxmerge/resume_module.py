@@ -1,10 +1,49 @@
-import os, zipfile
+import os, zipfile, base64, hashlib
 from datetime import datetime
+
 import comtypes.client
 from win32com.client import pythoncom
+from django.conf import settings
+from Crypto import Random
+from Crypto.Cipher import AES
 
 from .models import Resume
 from . import resume_config
+
+class AESCipher():
+    
+    def __init__(self):
+        key = resume_config.SECRET_KEY[:32] # AES-256
+        self.bs = 32
+        self.key = hashlib.sha256(AESCipher.str_to_bytes(key)).digest()
+
+    @staticmethod
+    def str_to_bytes(data):
+        u_type = type(b''.decode('utf8'))
+        if isinstance(data, u_type):
+            return data.encode('utf8')
+        return data
+
+    def _pad(self, s):
+        return s + (self.bs - len(s) % self.bs) * AESCipher.str_to_bytes(chr(self.bs - len(s) % self.bs))
+
+    @staticmethod
+    def _unpad(s):
+        return s[:-ord(s[len(s)-1:])]
+
+    def encrypt(self, raw):
+        raw = self._pad(AESCipher.str_to_bytes(raw))
+        iv = Random.new().read(AES.block_size)
+        cipher = AES.new(self.key, AES.MODE_CBC, iv)
+        return base64.b64encode(iv + cipher.encrypt(raw)).decode('utf-8')
+
+    def decrypt(self, enc):
+        enc = base64.b64decode(enc)
+        iv = enc[:AES.block_size]
+        cipher = AES.new(self.key, AES.MODE_CBC, iv)
+        return self._unpad(cipher.decrypt(enc[AES.block_size:])).decode('utf-8')
+
+
 
 def docx_to_pdf(docx, pdf):
     pythoncom.CoInitialize()
@@ -24,24 +63,24 @@ def docx_to_pdf(docx, pdf):
 
 # Main
 def merge(info, username):
+
+    aes = AESCipher()
     date = datetime.now().strftime("%Y. %m. %d.")
     replace_text = resume_config.requests(date, info)
 
     try:
-        user_path = 'media/resume_users/' + str(username)
-
         # 작업 실행 시간
         create_time = datetime.today().strftime("%Y%m%d%H%M%S")
+
+        enc = aes.encrypt(str(username) + '-' + create_time)
+        enc = enc.replace('/', 'SLASH')
+        user_path = 'media/resume_users/' + enc
 
         # User 폴더가 없으면(신규 유저이면) User의 폴더 생성
         if not os.path.isdir('media/resume_users/'):
             os.mkdir('media/resume_users/')
         if not os.path.isdir(user_path):
             os.mkdir(user_path)
-        if not os.path.isdir(user_path + '/docx'):
-            os.mkdir(user_path + '/docx')
-        if not os.path.isdir(user_path + '/pdf'):
-            os.mkdir(user_path + '/pdf')
 
         # docx 파일 템플릿 리스트
         # media/resume_templates/template.docx
@@ -60,15 +99,11 @@ def merge(info, username):
         for template_name, template_url in zip(template_name_list, template_url_list):
 
             # 생성될 파일 경로 및 이름
-            # 'media/resume_users/{user_path}/docx/{create_time}-{template_name}'
-            new_name = user_path + "/docx/" + create_time + "-" + template_name
-            pdf_name = user_path + "/pdf/" + create_time + "-" + template_name[:template_name.rfind(".")] + '.pdf'
+            # 'media/resume_users/{user_path}/{username}-{template_name}'
+            new_name = user_path + "/" + str(username) + "-" + template_name
+            pdf_name = user_path + "/" + str(username) + "-" + template_name[:template_name.rfind(".")] + '.pdf'
             new_name_list.append(new_name)
             pdf_name_list.append(pdf_name)
-
-            # 병합될 파일 이름이 이미 존재한다면(너무 빠른 시간 안에 user가 다시 요청한 상태) 예외 발생
-            if os.path.isfile(new_name):
-                raise FileExistsError
 
             # 병합될 파일
             new_docx = zipfile.ZipFile(new_name, 'a')

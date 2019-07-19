@@ -22,6 +22,6 @@ app_name = 'docxmerge'
 urlpatterns = [
     path('resume_upload/', views.resume_upload, name="upload"),
     path('resume_form/', views.resume_form, name="form"),
-    # path('resume_result/', views.resume_result, name="resume_result"),
     path('resume_detail/', views.resume_detail, name="detail"),
+    path('resume_download/<str:type>', views.resume_download, name="download"),
 ]

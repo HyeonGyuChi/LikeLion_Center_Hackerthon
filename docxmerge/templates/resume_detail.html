@@ -14,7 +14,16 @@
         <iframe width=550 height=770 src="{% static path %}"></iframe>
     </div>
     <div>
-        
+        <form method="POST" action="{% url 'docxmerge:download' 'docx' %}">
+            {% csrf_token %}
+            <input type="hidden" name="path" value={{path}}>
+            <input type="submit" value="docx 다운로드">
+        </form>
+        <form method="POST" action="{% url 'docxmerge:download' 'pdf' %}">
+            {% csrf_token %}
+            <input type="hidden" name="path" value={{path}}>
+            <input type="submit" value="pdf 다운로드">
+        </form>
     </div>
 </div>
 </body>
