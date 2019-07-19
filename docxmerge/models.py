@@ -5,8 +5,7 @@ from django.urls import reverse
 from django.dispatch import receiver
 
 class Resume(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    resume_name = models.CharField(default=uuid.uuid4, max_length=50)
+    resume_name = models.CharField(default="이력서 템플릿", max_length=50)
     file = models.FileField(upload_to="resume_templates", null=True)
     download_num = models.IntegerField(default=0)
     like_user_set = models.ManyToManyField(

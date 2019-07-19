@@ -4,12 +4,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404, resolve_url
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.http import require_POST
 from wsgiref.util import FileWrapper
 from .models import Resume, ResumeInfo, ResumeMerged
 from .forms import ResumeInfoForm, UploadFileForm
 from .resume_module import merge
 
+@login_required
 def resume_make(request):
     if request.method == 'POST':
         form = ResumeInfoForm(request.POST)
@@ -22,7 +24,6 @@ def resume_make(request):
         user_id = User.objects.get(username=request.user.get_username())
         resume_merged_list = merge(form, user_id)
         return render(request, 'resume_result.html', {'resume_merged_list':resume_merged_list})
-        # return HttpResponse(resolve_url('docxmerge:resume_result', export_paths=export_paths))
     else:
         form = ResumeInfoForm()
     return render(request, 'resume_make.html', {'form':form})
@@ -44,13 +45,14 @@ def resume_like(request):
     else:
         message = "좋아요"
 
-    context = {'like_count': resume.like_count,
+    context = {'like_count': resume.like_count(),
                'message': message,
                'username': request.user.username }
 
     return HttpResponse(json.dumps(context), content_type="application/json")
     # context를 json 타입으로
 
+@staff_member_required  # 관리자 계정만 템플릿 업로드 가능
 def resume_upload(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)

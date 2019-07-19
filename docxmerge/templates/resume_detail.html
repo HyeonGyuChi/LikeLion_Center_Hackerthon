@@ -22,15 +22,15 @@
             alert(response.message);
             $("#count-"+pk).html("좋아요 "+response.like_count+"개");
             var users = $("#like-user-"+pk).text();
-            if(users.indexOf(response.nickname) != -1){
+            if(users.indexOf(response.username) != -1){
               if(response.like_count == 0){
                 $("#like-user-"+pk).text("");
               }else{
-              $("#like-user-"+pk).text(users.replace(response.nickname, ""));
+              $("#like-user-"+pk).text(users.replace(response.username, ""));
               }
               $("input.like[name="+pk+"]").toggleClass('liked to-like');
             }else{
-              $("#like-user-"+pk).text(response.nickname+users);
+              $("#like-user-"+pk).text(response.username+users);
               $("input.like[name="+pk+"]").toggleClass('to-like liked');
             }
           },
@@ -55,10 +55,10 @@
     </div>
     <div>
         <li>
-            <input type="button" class="like" name="{{resume_merged.id}}" value="Like">
-            <p id="count-{{resume_merged.id}}">{{resume_merged.like_count}}개</p>
-            <p id="like-user-{{resume_merged.id}}">
-            {% for like_user in resume_merged.like_user_set.all %}
+            <input type="button" class="like" name="{{resume_merged.resume.pk}}" value="Like">
+            <p id="count-{{resume_merged.resume.pk}}">{{resume_merged.resume.like_count}}개</p>
+            <p id="like-user-{{resume_merged.resume.pk}}">
+            {% for like_user in resume_merged.resume.like_user_set.all %}
                 {{ like_user.username }}
             {% endfor %}
             </p>

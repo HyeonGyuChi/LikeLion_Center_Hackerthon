@@ -1,5 +1,6 @@
 import os, zipfile, base64, hashlib
-from datetime import datetime
+from datetime import datetime, time
+from threading import Thread
 
 import comtypes.client
 from win32com.client import pythoncom
@@ -43,18 +44,11 @@ class AESCipher():
         cipher = AES.new(self.key, AES.MODE_CBC, iv)
         return self._unpad(cipher.decrypt(enc[AES.block_size:])).decode('utf-8')
 
-
-
 def docx_to_pdf(docx, pdf):
     pythoncom.CoInitialize()
     wdFormatPDF = 17
-
     in_file = os.path.abspath(docx)
     out_file = os.path.abspath(pdf)
-
-    print(in_file)
-    print(out_file)
-
     word = comtypes.client.CreateObject('Word.Application')
     doc = word.Documents.Open(in_file)
     doc.SaveAs(out_file, FileFormat=wdFormatPDF)
@@ -140,22 +134,26 @@ def merge(info, username):
             new_docx.close()
         print("-----------------------------Merge complete------------------------------------")
 
+        # convert docx to pdf with thread
+        starttime = datetime.now()
+        threads = []
         for new_name, pdf_name in zip(new_name_list, pdf_name_list):
-            # pdf로 변환 및 static 경로 저장
-            docx_to_pdf(new_name, pdf_name)
+            t = Thread(target=docx_to_pdf, args=(new_name, pdf_name))
+            threads.append(t)
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+        print("convert end", datetime.now() - starttime)
+
+        ## convert docx to pdf with non-thread
+        # starttime = datetime.now()
+        # for new_name, pdf_name in zip(new_name_list, pdf_name_list):
+        #     # pdf로 변환 및 static 경로 저장
+        #     docx_to_pdf(new_name, pdf_name)
+        # print(datetime.now() - starttime)
         print("-------------------------Convert to pdf complete-------------------------------")
 
     except Exception as ex:
         raise ex
     return resume_merged_list
-
-# if __name__ == '__main__':
-#     date = datetime.now().strftime("%y/%m/%d")
-#     writer_id = "test-id1"
-#     replace_text = config.requests(
-#         date, 
-#         '오정우', 
-#         '강원도 춘천시 강원대학길1 공6호관', 
-#         '010-4820-1442', 
-#         'qwlake@gmail.com',)
-#     resume(writer_id, replace_text)
