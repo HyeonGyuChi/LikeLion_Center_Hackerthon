@@ -10,7 +10,7 @@
 <body>
 <div class="container">
     <h2>정보 입력</h2>
-    <form method="POST" action="{% url 'docxmerge:form' %}">
+    <form method="POST" action="{% url 'docxmerge:make' %}">
         {% csrf_token %}
         이름:
         <input name="writer_name" type="text">

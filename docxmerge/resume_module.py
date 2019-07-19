@@ -7,7 +7,7 @@ from django.conf import settings
 from Crypto import Random
 from Crypto.Cipher import AES
 
-from .models import Resume
+from .models import Resume, ResumeMerged
 from . import resume_config
 
 class AESCipher():
@@ -82,21 +82,25 @@ def merge(info, username):
         if not os.path.isdir(user_path):
             os.mkdir(user_path)
 
+        template_name_list = []
+        new_name_list = []
+        pdf_name_list = []
+        resume_merged_list = []
+
         # docx 파일 템플릿 리스트
         # media/resume_templates/template.docx
         template_url_list = []
         for res in Resume.objects.all():
             template_url_list.append(res.file.url[1:])
-
-        template_name_list = []
-        new_name_list = []
-        pdf_name_list = []
-        export_url_list = []
+            resume_merged = ResumeMerged()
+            resume_merged.user = username
+            resume_merged.resume = res
+            resume_merged_list.append(resume_merged)
 
         for template_url in template_url_list:
             template_name_list.append(template_url[template_url.rfind("/")+1:])
 
-        for template_name, template_url in zip(template_name_list, template_url_list):
+        for template_name, template_url, resume_merged in zip(template_name_list, template_url_list, resume_merged_list):
 
             # 생성될 파일 경로 및 이름
             # 'media/resume_users/{user_path}/{username}-{template_name}'
@@ -104,6 +108,10 @@ def merge(info, username):
             pdf_name = user_path + "/" + str(username) + "-" + template_name[:template_name.rfind(".")] + '.pdf'
             new_name_list.append(new_name)
             pdf_name_list.append(pdf_name)
+
+            resume_merged.docx_file = new_name[new_name.find('/')+1:]
+            resume_merged.pdf_file = pdf_name[pdf_name.find('/')+1:]
+            resume_merged.save()
 
             # 병합될 파일
             new_docx = zipfile.ZipFile(new_name, 'a')
@@ -135,12 +143,11 @@ def merge(info, username):
         for new_name, pdf_name in zip(new_name_list, pdf_name_list):
             # pdf로 변환 및 static 경로 저장
             docx_to_pdf(new_name, pdf_name)
-            export_url_list.append("../" + pdf_name)
         print("-------------------------Convert to pdf complete-------------------------------")
 
     except Exception as ex:
         raise ex
-    return export_url_list
+    return resume_merged_list
 
 # if __name__ == '__main__':
 #     date = datetime.now().strftime("%y/%m/%d")

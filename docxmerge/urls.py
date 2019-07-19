@@ -21,7 +21,8 @@ from . import views
 app_name = 'docxmerge'
 urlpatterns = [
     path('resume_upload/', views.resume_upload, name="upload"),
-    path('resume_form/', views.resume_form, name="form"),
-    path('resume_detail/', views.resume_detail, name="detail"),
-    path('resume_download/<str:type>', views.resume_download, name="download"),
+    path('resume_make/', views.resume_make, name="make"),
+    path('resume_detail/<int:pk>', views.resume_detail, name="detail"),
+    path('resume_download/<int:pk>/<str:type>', views.resume_download, name="download"),
+    path('resume_like/', views.resume_like, name='like'),
 ]

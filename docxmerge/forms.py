@@ -1,7 +1,7 @@
 from django import forms
 from .models import ResumeInfo, Resume
 
-class ResumeForm(forms.ModelForm):
+class ResumeInfoForm(forms.ModelForm):
     class Meta:
         model = ResumeInfo
         fields = ['writer_name', 'writer_address', 'writer_phone', 'writer_email']

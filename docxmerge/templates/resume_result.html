@@ -10,15 +10,11 @@
 <body>
 <div class="container">
     <div>결과:</div>
-    {% for path in export_paths %}
+    {% for resume_merged in resume_merged_list %}
         <div>
             <!-- <iframe width=550 height=770 src="https://docs.google.com/gview?url=http://localhost:8000{% static path %}&embedded=true"></iframe> -->
-            <iframe width=550 height=770 src="{% static path %}"></iframe>
-            <form method="POST" action="{% url 'docxmerge:detail' %}" target="_blank">
-                {% csrf_token %}
-                <input type="hidden" name="path" value={{path}}>
-                <input type="submit" value="자세히 보기">
-            </form>
+            <iframe width=550 height=770 src="{{resume_merged.pdf_file.url}}"></iframe>
+            <button class="dropdown-item" type="button" onclick="location.href='{% url 'docxmerge:detail' pk=resume_merged.pk %}'">자세히 보기</button>
         </div>
     {% endfor %}
 </div>
