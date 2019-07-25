@@ -6,21 +6,17 @@
 
   
   
-## Dependencies:
+## Quitck start:
 
 ```python
 
-pip install django
-
-pip install comtypes
-
-pip install pypiwin32
-
-pip install pycryptodome
+python -m venv .venv
+source .venv/Scripts/activate
+pip install -r requirements.txt
 
 ```
+> Dependencies: comtypes==1.1.7 Django==2.2.3 pycryptodome==3.8.2 pypiwin32==223 django-authtools==1.7.0
 
-  
 
 ## Apps informations
 
@@ -47,31 +43,32 @@ word : docx > xml or xml to docx 과정에서 생성되는 임시 파일들이 �
 
 ## Patch note
 
-**2019.07.10 : docx merge 0.1v complete.** @qwlake(정우)
-
-```
-1. 이력서 템플릿에 사용자 정보 merge 기능 구현
-2. merge된 docx파일을 pdf로 출력 기능 구현
-```
-
-***
-
-**2019.07.20 : detail page 0.1v complete.** @qwlake(정우)
-
-```
-1. admin 계정의 템플릿 업로드 기능 추가
-2. 좋아요 기능 추가
-3. media 파일 경로 암호화(AES-256)
-4. docx to pdf 과정을 thread 사용으로 병렬화
-```
-
-***
 
 **2019.07.24 : coin complete.** @rbgus(규현)
 
 ```
-1. accountsapp의 user model을 django.User 모델이 아닌 커스텀 모델 구현
-2. accountsapp의 user 모델에 coin기능 추가
+* ``accountsapp``의 ``user model``을 ``django.contrib.auth.models``이 아닌 커스텀 모델 구현
+* ``accountsapp``의 ``user`` 모델에 coin기능 추가
 ```
 
 ***
+
+
+**2019.07.10 : docx merge 0.1v complete.** @qwlake(정우)
+
+```
+* 이력서 템플릿에 사용자 정보 merge 기능 구현
+* merge된 docx파일을 pdf로 출력 기능 구현
+```
+
+***
+
+
+**2019.07.20 : detail page 0.1v complete.** @qwlake(정우)
+
+```
+* admin 계정의 템플릿 업로드 기능 추가
+* 좋아요 기능 추가
+* media 파일 경로 암호화(AES-256)
+* docx to pdf 과정을 thread 사용으로 병렬화
+```
