@@ -20,7 +20,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ resume_info.info_name }}</h5>
                 <p class="card-text">{{ resume_info.date }} 작성</p>
-                <a href="{% url 'docxmerge:result' resume_info.pk %}"" class="btn btn-primary">이력서 보기</a>
+                <a href="{% url 'docxmerge:result' resume_info.pk %}" class="btn btn-primary">이력서 보기</a>
             </div>
         </div>
     {% endfor %}

@@ -1,4 +1,4 @@
-import os, json
+import os, json, operator
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404, resolve_url
@@ -30,10 +30,17 @@ def resume_make(request):
         form = ResumeInfoForm()
     return render(request, 'resume_make.html', {'form':form})
 
-def resume_result(request, pk):
+def resume_result(request, pk, order_by='download_num', order_updown='down'):
     resume_info = ResumeInfo.objects.get(pk=pk)
     resume_merged_list = ResumeMerged.objects.filter(resume_info=resume_info)
-    return render(request, 'resume_result.html', {'resume_merged_list':resume_merged_list})
+    key = lambda resume: resume.download_num
+    reverse = False
+    if order_by == 'like_num':
+        key = lambda resume: resume.like_num
+    if order_updown == 'down':
+        reverse = True
+    sorted_resume_merged_list = sorted(resume_merged_list, key=key, reverse=reverse)
+    return render(request, 'resume_result.html', {'resume_merged_list':sorted_resume_merged_list})
 
 def resume_detail(request, pk):
     resume_merged = get_object_or_404(ResumeMerged, pk=pk)
@@ -82,4 +89,7 @@ def resume_download(request, pk, type):
     response = HttpResponse(wrapper, content_type=content_type)
     filename = resume_merged.user.username
     response['Content-Disposition'] = 'inline; filename=' + filename + '.' + type
+
+    resume = get_object_or_404(Resume, pk=resume_merged.resume.pk)
+    resume_download, resume_download_created = resume.download_set.get_or_create(user=request.user)
     return response

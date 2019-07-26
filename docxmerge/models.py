@@ -13,12 +13,20 @@ class Resume(models.Model):
         blank=True,
         related_name='like_user_set',
         through='Like')
+    download_user_set = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        related_name='download_user_set',
+        through='Download')
 
     def __str__(self):
         return ("{}").format(self.resume_name)
 
     def like_count(self):
         return self.like_user_set.count()
+
+    def download_count(self):
+        return self.download_user_set.count()
 
 class ResumeInfo(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -46,7 +54,26 @@ class ResumeMerged(models.Model):
     def __str__(self):
         return ("{} - {}").format(self.user.username, self.resume.resume_name)
 
+    @property
+    def download_num(self):
+        return self.resume.download_count()
+
+    @property
+    def like_num(self):
+        return self.resume.like_count()
+
 class Like(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    resume = models.ForeignKey('Resume', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = (
+            ('user', 'resume')
+        )
+
+class Download(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     resume = models.ForeignKey('Resume', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

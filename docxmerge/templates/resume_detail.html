@@ -19,7 +19,7 @@
           // 서버측에서 전송한 Response 데이터 형식 (json)
           // {'likes_count': docxmerge:like, 'message': message }
           success: function(response){ // 통신 성공시 - 좋아요 갯수 변경, 유저 목록 변경
-            alert(response.message);
+            // alert(response.message);
             $("#count-"+pk).html("좋아요 "+response.like_count+"개");
             var users = $("#like-user-"+pk).text();
             if(users.indexOf(response.username) != -1){
@@ -40,7 +40,9 @@
             //  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
           },
         });
-      });
+    });
+
+
     </script>
 </head>
 <body>
@@ -49,20 +51,17 @@
     <div>
         <iframe width=550 height=770 src="{{resume_merged.pdf_file.url}}"></iframe>
     </div>
-    <div>
-        <button class="dropdown-item" type="button" onclick="location.href='{% url 'docxmerge:download' resume_merged.pk 'docx' %}'">docx 다운로드</button>
-        <button class="dropdown-item" type="button" onclick="location.href='{% url 'docxmerge:download' resume_merged.pk 'pdf' %}'">pdf 다운로드</button>
-    </div>
-    <div>
-        <li>
-            <input type="button" class="like" name="{{resume_merged.resume.pk}}" value="Like">
-            <p id="count-{{resume_merged.resume.pk}}">{{resume_merged.resume.like_count}}개</p>
-            <p id="like-user-{{resume_merged.resume.pk}}">
-            {% for like_user in resume_merged.resume.like_user_set.all %}
-                {{ like_user.username }}
-            {% endfor %}
-            </p>
-        </li>
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <div class="btn btn-secondary" id="count-{{resume_merged.resume.pk}}">좋아요 {{ resume_merged.resume.like_count }}개</div>
+        <button type="button" class="like btn btn-secondary" name="{{resume_merged.resume.pk}}">Like</button>
+        <div class="btn btn-secondary" id="count-{{resume_merged.resume.pk}}">다운로드 {{ resume_merged.resume.download_count }}번</div>
+        <div class="btn-group" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">다운로드</button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="download dropdown-item" href="{% url 'docxmerge:download' resume_merged.pk 'docx' %}">DOCX 다운로드</a>
+            <a class="download dropdown-item" href="{% url 'docxmerge:download' resume_merged.pk 'pdf' %}">PDF 다운로드</a>
+            </div>
+        </div>
     </div>
 </div>
 </body>

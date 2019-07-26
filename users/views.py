@@ -8,13 +8,8 @@ def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email']
-            password = form.clean_password2()
-            name = form.cleaned_data['name']
-            user = User.objects.create_user(
-                email=email, 
-                password=password, 
-                name=name, )
+            user = form.save(commit=False)
+            user.save()
             auth.login(request, user)
             return redirect('index')
         else:

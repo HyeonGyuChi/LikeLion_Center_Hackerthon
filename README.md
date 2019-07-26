@@ -43,22 +43,22 @@ word : docx > xml or xml to docx 과정에서 생성되는 임시 파일들이 �
 
 ## Patch note
 
+**2019.07.26 : mypage complete.** @qwlake(정우)
+
+```
+* ``mypage``앱 완성 및 페이지(html) 완성
+* 기존의 ``accountsapp`` 삭제 후, ``django-authtools``를 이용한 ``users`` 앱 생성
+* ``result.html``과 ``detail.html``에서 ``Resume``의 다운로드 수 및 좋아요 수 보기 기능 추가
+```
+
+***
+
 
 **2019.07.24 : coin complete.** @rbgus(규현)
 
 ```
 * ``accountsapp``의 ``user model``을 ``django.contrib.auth.models``이 아닌 커스텀 모델 구현
 * ``accountsapp``의 ``user`` 모델에 coin기능 추가
-```
-
-***
-
-
-**2019.07.10 : docx merge 0.1v complete.** @qwlake(정우)
-
-```
-* 이력서 템플릿에 사용자 정보 merge 기능 구현
-* merge된 docx파일을 pdf로 출력 기능 구현
 ```
 
 ***
@@ -72,3 +72,13 @@ word : docx > xml or xml to docx 과정에서 생성되는 임시 파일들이 �
 * media 파일 경로 암호화(AES-256)
 * docx to pdf 과정을 thread 사용으로 병렬화
 ```
+
+
+**2019.07.10 : docx merge 0.1v complete.** @qwlake(정우)
+
+```
+* 이력서 템플릿에 사용자 정보 merge 기능 구현
+* merge된 docx파일을 pdf로 출력 기능 구현
+```
+
+***
