@@ -23,7 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('admin/', indexapp.views.admin_page, name='admin_page'),
     path('indexapp/', include('indexapp.urls')),
-    path('accountsapp/', include('accountsapp.urls')),
     path('docxmerge/', include('docxmerge.urls')),
     path('', indexapp.views.index, name='index'),
+    path('accounts/', include('authtools.urls')),
+    path('users/', include('users.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

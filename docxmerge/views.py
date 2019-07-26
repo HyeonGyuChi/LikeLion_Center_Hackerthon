@@ -1,8 +1,8 @@
-import os, json
+import os, json, operator
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404, resolve_url
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.http import require_POST
@@ -10,23 +10,37 @@ from wsgiref.util import FileWrapper
 from .models import Resume, ResumeInfo, ResumeMerged
 from .forms import ResumeInfoForm, UploadFileForm
 from .resume_module import merge
+from users.models import User
 
 @login_required
 def resume_make(request):
     if request.method == 'POST':
         form = ResumeInfoForm(request.POST)
         if form.is_valid():
-            resumeinfo = form.save(commit=False)
-            resumeinfo.user = request.user
-            resumeinfo.save()
+            resume_info = form.save(commit=False)
+            resume_info.user = request.user
+            resume_info.save()
         else:
             print(form.errors)
-        user_id = User.objects.get(username=request.user.get_username())
-        resume_merged_list = merge(form, user_id)
-        return render(request, 'resume_result.html', {'resume_merged_list':resume_merged_list})
+        user = User.objects.get(username=request.user.get_full_name())
+        resume_merged_list = merge(form, resume_info)
+        # return render(request, 'resume_result.html', {'resume_merged_list':resume_merged_list})
+        return redirect('docxmerge:result', resume_info.pk)
     else:
         form = ResumeInfoForm()
     return render(request, 'resume_make.html', {'form':form})
+
+def resume_result(request, pk, order_by='download_num', order_updown='down'):
+    resume_info = ResumeInfo.objects.get(pk=pk)
+    resume_merged_list = ResumeMerged.objects.filter(resume_info=resume_info)
+    key = lambda resume: resume.download_num
+    reverse = False
+    if order_by == 'like_num':
+        key = lambda resume: resume.like_num
+    if order_updown == 'down':
+        reverse = True
+    sorted_resume_merged_list = sorted(resume_merged_list, key=key, reverse=reverse)
+    return render(request, 'resume_result.html', {'resume_merged_list':sorted_resume_merged_list})
 
 def resume_detail(request, pk):
     resume_merged = get_object_or_404(ResumeMerged, pk=pk)
@@ -57,7 +71,7 @@ def resume_upload(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            instance = Resume(resume_name=request.POST['resume_name'], file=request.FILES['file'])
+            instance = Resume(resume_name=form.cleaned_data['resume_name'], file=form.cleaned_data['file'])
             instance.save()
             return redirect(reverse('index'))
     else:
@@ -75,4 +89,7 @@ def resume_download(request, pk, type):
     response = HttpResponse(wrapper, content_type=content_type)
     filename = resume_merged.user.username
     response['Content-Disposition'] = 'inline; filename=' + filename + '.' + type
+
+    resume = get_object_or_404(Resume, pk=resume_merged.resume.pk)
+    resume_download, resume_download_created = resume.download_set.get_or_create(user=request.user)
     return response

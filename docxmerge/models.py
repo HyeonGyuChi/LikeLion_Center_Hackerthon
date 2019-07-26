@@ -13,6 +13,11 @@ class Resume(models.Model):
         blank=True,
         related_name='like_user_set',
         through='Like')
+    download_user_set = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        related_name='download_user_set',
+        through='Download')
 
     def __str__(self):
         return ("{}").format(self.resume_name)
@@ -20,9 +25,13 @@ class Resume(models.Model):
     def like_count(self):
         return self.like_user_set.count()
 
+    def download_count(self):
+        return self.download_user_set.count()
+
 class ResumeInfo(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
+    info_name = models.CharField(max_length=50)
     writer_name = models.CharField(max_length=20)
     writer_address = models.TextField()
     writer_phone = models.CharField(max_length=13)
@@ -31,20 +40,40 @@ class ResumeInfo(models.Model):
     def __str__(self):
         return ("{} - {}").format(self.writer_name, str(self.date))
 
-    def get_absolute_url(self):
-        print("get_absolute_url 사용됨")
-        return reverse('views.resume_detail', args=[str(self.id)])
+    # def get_absolute_url(self):
+    #     print("get_absolute_url 사용됨")
+    #     return reverse('views.resume_detail', args=[str(self.id)])
 
 class ResumeMerged(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     resume = models.ForeignKey('Resume', on_delete=models.CASCADE)
+    resume_info = models.ForeignKey('ResumeInfo', on_delete=models.CASCADE)
     docx_file = models.FileField(null=True)
     pdf_file = models.FileField(null=True)
 
     def __str__(self):
         return ("{} - {}").format(self.user.username, self.resume.resume_name)
 
+    @property
+    def download_num(self):
+        return self.resume.download_count()
+
+    @property
+    def like_num(self):
+        return self.resume.like_count()
+
 class Like(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    resume = models.ForeignKey('Resume', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = (
+            ('user', 'resume')
+        )
+
+class Download(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     resume = models.ForeignKey('Resume', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

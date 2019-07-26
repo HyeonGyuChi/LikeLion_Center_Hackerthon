@@ -11,10 +11,11 @@
 <div class="container">
     <div>결과:</div>
     {% for resume_merged in resume_merged_list %}
+        <iframe width=550 height=770 src="{{resume_merged.pdf_file.url}}"></iframe>
         <div>
-            <!-- <iframe width=550 height=770 src="https://docs.google.com/gview?url=http://localhost:8000{% static path %}&embedded=true"></iframe> -->
-            <iframe width=550 height=770 src="{{resume_merged.pdf_file.url}}"></iframe>
-            <button class="dropdown-item" type="button" onclick="location.href='{% url 'docxmerge:detail' pk=resume_merged.pk %}'">자세히 보기</button>
+            <span class="badge badge-secondary">다운로드 수 : {{ resume_merged.download_num }}</span>
+            <span class="badge badge-secondary">좋아요 수 : {{ resume_merged.like_num }}</span>
+            <button class="btn btn-light" type="button" onclick="location.href='{% url 'docxmerge:detail' pk=resume_merged.pk %}'">자세히 보기</button>
         </div>
     {% endfor %}
 </div>

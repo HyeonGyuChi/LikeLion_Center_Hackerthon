@@ -5,21 +5,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Log in</title>
 </head>
 <body>
 <div class="container">
     <h2>Log in</h2>
-    <form method="POST" action="{% url 'login' %}">
+    <form method="POST" action="{% url 'users:login' %}">
         {% csrf_token %}
-        Username:
-        <br>
-        <input name="username" type="text">
-        <br>
-        Password:
-        <br>
-        <input name="password" type="password">
-        <br><br>
+        <table>
+            {{ form.as_table }}
+        </table>
         <input type="submit" class="btn btn-light" value="sign up">
     </form>
 </div>

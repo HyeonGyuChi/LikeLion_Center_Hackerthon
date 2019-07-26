@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'indexapp',
-    'accountsapp',
     'docxmerge',
+    'authtools',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,5 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
 
+AUTH_USER_MODEL = 'users.User'
+# AUTH_USER_MODEL = 'authtools.User'

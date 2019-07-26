@@ -92,19 +92,12 @@
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                 {% if user.is_authenticated %}
-                <button class="dropdown-item" type="button" onclick="location.href='#'">글쓰기</button>
-                <button class="dropdown-item" onclick="javascript:{document.getElementById('logout').submit()}">Log out
-                </button>
-                <form id="logout" method="POST" action="{% url 'logout' %}">
-                    {% csrf_token %} <input type="hidden"/>
-                </form>
-                <button class="dropdown-item" type="button" onclick="location.href='{% url 'admin_page' %}'">Admin
-                    page
-                </button>
+                <button class="dropdown-item" type="button" onclick="location.href='{% url 'users:mypage' %}'">My page</button>
+                <button class="dropdown-item" onclick="location.href='{% url 'users:logout' %}'">Log out</button>
+                <button class="dropdown-item" type="button" onclick="location.href='{% url 'admin_page' %}'">Admin page</button>
                 {% else %}
-                <button class="dropdown-item" type="button" onclick="location.href='{% url 'signup' %}'">Sign up
-                </button>
-                <button class="dropdown-item" type="button" onclick="location.href='{% url 'login' %}'">Log in</button>
+                <button class="dropdown-item" type="button" onclick="location.href='{% url 'users:signup' %}'">Sign up</button>
+                <button class="dropdown-item" type="button" onclick="location.href='{% url 'users:login' %}'">Log in</button>
                 {% endif %}
             </div>
         </div>
