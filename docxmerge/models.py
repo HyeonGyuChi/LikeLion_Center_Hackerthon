@@ -23,6 +23,7 @@ class Resume(models.Model):
 class ResumeInfo(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
+    info_name = models.CharField(max_length=50)
     writer_name = models.CharField(max_length=20)
     writer_address = models.TextField()
     writer_phone = models.CharField(max_length=13)
@@ -31,13 +32,14 @@ class ResumeInfo(models.Model):
     def __str__(self):
         return ("{} - {}").format(self.writer_name, str(self.date))
 
-    def get_absolute_url(self):
-        print("get_absolute_url 사용됨")
-        return reverse('views.resume_detail', args=[str(self.id)])
+    # def get_absolute_url(self):
+    #     print("get_absolute_url 사용됨")
+    #     return reverse('views.resume_detail', args=[str(self.id)])
 
 class ResumeMerged(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     resume = models.ForeignKey('Resume', on_delete=models.CASCADE)
+    resume_info = models.ForeignKey('ResumeInfo', on_delete=models.CASCADE)
     docx_file = models.FileField(null=True)
     pdf_file = models.FileField(null=True)
 

@@ -56,7 +56,7 @@ def docx_to_pdf(docx, pdf):
     word.Quit()
 
 # Main
-def merge(info, username):
+def merge(info, resume_info):
 
     aes = AESCipher()
     date = datetime.now().strftime("%Y. %m. %d.")
@@ -66,7 +66,7 @@ def merge(info, username):
         # 작업 실행 시간
         create_time = datetime.today().strftime("%Y%m%d%H%M%S")
 
-        enc = aes.encrypt(str(username) + '-' + create_time)
+        enc = aes.encrypt(resume_info.user.username + '-' + create_time)
         enc = enc.replace('/', 'SLASH')
         user_path = 'media/resume_users/' + enc
 
@@ -87,8 +87,9 @@ def merge(info, username):
         for res in Resume.objects.all():
             template_url_list.append(res.file.url[1:])
             resume_merged = ResumeMerged()
-            resume_merged.user = username
+            resume_merged.user = resume_info.user
             resume_merged.resume = res
+            resume_merged.resume_info = resume_info
             resume_merged_list.append(resume_merged)
 
         for template_url in template_url_list:
@@ -97,9 +98,9 @@ def merge(info, username):
         for template_name, template_url, resume_merged in zip(template_name_list, template_url_list, resume_merged_list):
 
             # 생성될 파일 경로 및 이름
-            # 'media/resume_users/{user_path}/{username}-{template_name}'
-            new_name = user_path + "/" + str(username) + "-" + template_name
-            pdf_name = user_path + "/" + str(username) + "-" + template_name[:template_name.rfind(".")] + '.pdf'
+            # 'media/resume_users/{user_path}/{resume_info.user}-{template_name}'
+            new_name = user_path + "/" + resume_info.user.username + "-" + template_name
+            pdf_name = user_path + "/" + resume_info.user.username + "-" + template_name[:template_name.rfind(".")] + '.pdf'
             new_name_list.append(new_name)
             pdf_name_list.append(pdf_name)
 

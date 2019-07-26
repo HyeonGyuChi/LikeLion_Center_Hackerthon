@@ -17,17 +17,23 @@ def resume_make(request):
     if request.method == 'POST':
         form = ResumeInfoForm(request.POST)
         if form.is_valid():
-            resumeinfo = form.save(commit=False)
-            resumeinfo.user = request.user
-            resumeinfo.save()
+            resume_info = form.save(commit=False)
+            resume_info.user = request.user
+            resume_info.save()
         else:
             print(form.errors)
         user = User.objects.get(username=request.user.get_full_name())
-        resume_merged_list = merge(form, user)
-        return render(request, 'resume_result.html', {'resume_merged_list':resume_merged_list})
+        resume_merged_list = merge(form, resume_info)
+        # return render(request, 'resume_result.html', {'resume_merged_list':resume_merged_list})
+        return redirect('docxmerge:result', resume_info.pk)
     else:
         form = ResumeInfoForm()
     return render(request, 'resume_make.html', {'form':form})
+
+def resume_result(request, pk):
+    resume_info = ResumeInfo.objects.get(pk=pk)
+    resume_merged_list = ResumeMerged.objects.filter(resume_info=resume_info)
+    return render(request, 'resume_result.html', {'resume_merged_list':resume_merged_list})
 
 def resume_detail(request, pk):
     resume_merged = get_object_or_404(ResumeMerged, pk=pk)

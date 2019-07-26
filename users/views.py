@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import auth
 from authtools.forms import UserCreationForm
 from .models import User
-from docxmerge.models import ResumeInfo
+from docxmerge.models import ResumeInfo, ResumeMerged
 
 def signup(request):
     if request.method == 'POST':
@@ -24,6 +24,7 @@ def signup(request):
     return render(request, 'registration/signup.html', {'form':form})
 
 def mypage(request):
-    resume_infos = ResumeInfo.objects.filter(user=request.user)
-    # print(resume_infos)
-    return redirect('users:mypage')
+    coin = request.user.coin
+    resume_merged_list = []
+    resume_info_list = ResumeInfo.objects.filter(user=request.user)
+    return render(request, 'mypage.html', {'coin':coin, 'resume_info_list':resume_info_list})
