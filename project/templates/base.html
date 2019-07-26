@@ -75,19 +75,15 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Word count </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">About </a>
+                <a class="nav-link" href="#"></a>
             </li>
         </ul>
         {% if user.is_authenticated %}
-        <div class="nav-item text-white">환영합니다. {{ user.username }}님!</div>
+        <div class="nav-item text-white">환영합니다. {{ user.username }}님! </div>
         {% endif %}
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                Menu
+                    aria-haspopup="true" aria-expanded="false"> Menu
             </button>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
