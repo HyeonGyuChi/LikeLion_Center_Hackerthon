@@ -44,34 +44,21 @@ class AESCipher():
         cipher = AES.new(self.key, AES.MODE_CBC, iv)
         return self._unpad(cipher.decrypt(enc[AES.block_size:])).decode('utf-8')
 
-# def docx_to_pdf(docx, pdf):
-#     pythoncom.CoInitialize()
-#     wdFormatPDF = 17
-#     in_file = os.path.abspath(docx)
-#     out_file = os.path.abspath(pdf)
-#     word = comtypes.client.CreateObject('Word.Application')
-#     doc = word.Documents.Open(in_file)
-#     doc.SaveAs(out_file, FileFormat=wdFormatPDF)
-#     doc.Close()
-#     word.Quit()
+def docx_to_pdf(docx, pdf):
+    pythoncom.CoInitialize()
+    wdFormatPDF = 17
+    in_file = os.path.abspath(docx)
+    out_file = os.path.abspath(pdf)
+    word = comtypes.client.CreateObject('Word.Application')
+    doc = word.Documents.Open(in_file)
+    doc.SaveAs(out_file, FileFormat=wdFormatPDF)
+    doc.Close()
+    word.Quit()
 
 def docx_to_pdf2(new_name_list, pdf_name_list):
-    idx = int(len(new_name_list)/2)
-    new_list1 = new_name_list[:idx]
-    new_list2 = new_name_list[idx:]
-    pdf_list1 = pdf_name_list[:idx]
-    pdf_list2 = pdf_name_list[idx:]
-    t1 = Thread(target=convert, args=(new_list1, pdf_list1))
-    t2 = Thread(target=convert, args=(new_list2, pdf_list2))
-    t1.start()
-    t2.start()
-    t1.join()
-    t2.join()
-
-def convert(docx_list, pdf_list):
     pythoncom.CoInitialize()
     word = comtypes.client.CreateObject('Word.Application')
-    for docx, pdf in zip(docx_list, pdf_list):
+    for docx, pdf in zip(new_name_list, pdf_name_list):
         in_file = os.path.abspath(docx)
         out_file = os.path.abspath(pdf)
         doc = word.Documents.Open(in_file)
@@ -178,7 +165,7 @@ def merge(info, resume_info):
         #     docx_to_pdf(new_name, pdf_name)
         # print(datetime.now() - starttime)
 
-        # convert docx to pdf with thread and list
+        # convert docx to pdf with list
         starttime = datetime.now()
         docx_to_pdf2(new_name_list, pdf_name_list)
         print("convert end", datetime.now() - starttime)

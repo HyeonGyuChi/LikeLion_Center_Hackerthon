@@ -10,6 +10,13 @@
 <body>
 <div class="container">
     <div>결과:</div>
+
+    <select id="sort-select" onchange="location = this.value;">
+        <option value="{% url 'docxmerge:result' resume_info.pk 'download_num' 'down' %}">다운로드순</option>
+        <option value="{% url 'docxmerge:result' resume_info.pk 'like_num' 'down' %}">좋아요순</option>
+    </select>
+    <button onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'like_num' 'down' %}'">정렬순서</button>
+
     {% for resume_merged in resume_merged_list %}
         <iframe width=550 height=770 src="{{resume_merged.pdf_file.url}}"></iframe>
         <div>
