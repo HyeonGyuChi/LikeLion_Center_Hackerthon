@@ -15,7 +15,6 @@ source .venv/Scripts/activate
 pip install -r requirements.txt
 
 ```
-> Dependencies: comtypes==1.1.7 Django==2.2.3 pycryptodome==3.8.2 pypiwin32==223 django-authtools==1.7.0
 
 
 ## Apps informations
@@ -42,6 +41,15 @@ word : docx > xml or xml to docx 과정에서 생성되는 임시 파일들이 �
 
 
 ## Patch note
+
+**2019.08.01 : resumelist complete.** @qwlake(정우)
+
+* `result` 페이지에 좋아요순, 다운로드순 정렬 및 오름차순, 내림차순 정렬 기능 추가
+* `base.html` 디자인 변경
+* 기타 버그 수정
+
+***
+
 
 **2019.07.26 : mypage complete.** @qwlake(정우)
 

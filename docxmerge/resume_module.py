@@ -55,17 +55,6 @@ def docx_to_pdf(docx, pdf):
     doc.Close()
     word.Quit()
 
-def docx_to_pdf2(new_name_list, pdf_name_list):
-    pythoncom.CoInitialize()
-    word = comtypes.client.CreateObject('Word.Application')
-    for docx, pdf in zip(new_name_list, pdf_name_list):
-        in_file = os.path.abspath(docx)
-        out_file = os.path.abspath(pdf)
-        doc = word.Documents.Open(in_file)
-        doc.SaveAs(out_file, FileFormat=18)
-        doc.Close()
-    word.Quit()
-
 # Main
 def merge(info, resume_info):
 
@@ -146,17 +135,17 @@ def merge(info, resume_info):
             new_docx.close()
         print("-----------------------------Merge complete------------------------------------")
 
-        # # convert docx to pdf with thread
-        # starttime = datetime.now()
-        # threads = []
-        # for new_name, pdf_name in zip(new_name_list, pdf_name_list):
-        #     t = Thread(target=docx_to_pdf, args=(new_name, pdf_name))
-        #     threads.append(t)
-        # for t in threads:
-        #     t.start()
-        # for t in threads:
-        #     t.join()
-        # print("convert end", datetime.now() - starttime)
+        # convert docx to pdf with thread
+        starttime = datetime.now()
+        threads = []
+        for new_name, pdf_name in zip(new_name_list, pdf_name_list):
+            t = Thread(target=docx_to_pdf, args=(new_name, pdf_name))
+            threads.append(t)
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+        print("convert end", datetime.now() - starttime)
 
         ## convert docx to pdf with non-thread
         # starttime = datetime.now()
@@ -164,11 +153,6 @@ def merge(info, resume_info):
         #     # pdf로 변환 및 static 경로 저장
         #     docx_to_pdf(new_name, pdf_name)
         # print(datetime.now() - starttime)
-
-        # convert docx to pdf with list
-        starttime = datetime.now()
-        docx_to_pdf2(new_name_list, pdf_name_list)
-        print("convert end", datetime.now() - starttime)
         print("-------------------------Convert to pdf complete-------------------------------")
 
     except Exception as ex:

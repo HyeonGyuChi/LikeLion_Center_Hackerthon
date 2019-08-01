@@ -30,17 +30,21 @@ def resume_make(request):
         form = ResumeInfoForm()
     return render(request, 'resume_make.html', {'form':form})
 
-def resume_result(request, pk, order_by='download_num', order_updown='down'):
+def resume_result(request, pk, order_by='download_num', order=0):
     resume_info = ResumeInfo.objects.get(pk=pk)
     resume_merged_list = ResumeMerged.objects.filter(resume_info=resume_info)
     key = lambda resume: resume.download_num
     reverse = False
     if order_by == 'like_num':
         key = lambda resume: resume.like_num
-    if order_updown == 'down':
+    if order == 0:   # 내림차순
         reverse = True
     sorted_resume_merged_list = sorted(resume_merged_list, key=key, reverse=reverse)
-    return render(request, 'resume_result.html', {'resume_info':resume_info, 'resume_merged_list':sorted_resume_merged_list})
+    return render(request, 'resume_result.html', 
+        {'resume_info':resume_info, 
+        'resume_merged_list':sorted_resume_merged_list, 
+        'order_by':order_by, 
+        'order':order})
 
 def resume_detail(request, pk):
     resume_merged = get_object_or_404(ResumeMerged, pk=pk)
