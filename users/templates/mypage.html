@@ -12,18 +12,27 @@
     <h2>My Page</h2>
     <br>
     <div>
-        내 코인 : {{ coin }}
+        <span>내 코인 : {{ coin }}</span>
+        <button type="button" class="btn btn-light" onclick="location.href='#'">코인 충전</button>
     </div>
     <br>
-    {% for resume_info in resume_info_list %}
-        <div class="card text-center" style="width: 18rem;">
+    <div class="card-group">
+        {% for resume_info in resume_info_list %}
+            <div class="card text-center" style="max-width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ resume_info.info_name }}</h5>
+                    <p class="card-text">{{ resume_info.date }} 작성</p>
+                    <a href="{% url 'docxmerge:result' resume_info.pk %}" class="btn btn-primary">이력서 보기</a>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="card text-center" style="max-width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">{{ resume_info.info_name }}</h5>
-                <p class="card-text">{{ resume_info.date }} 작성</p>
-                <a href="{% url 'docxmerge:result' resume_info.pk %}" class="btn btn-primary">이력서 보기</a>
+                <h1 class="card-title">+</h1>
+                <a href="{% url 'docxmerge:make' %}" class="btn btn-primary">이력서 작성</a>
             </div>
         </div>
-    {% endfor %}
+    </div>
 </div>
 </body>
 </html>

@@ -9,7 +9,32 @@
 </head>
 <body>
 <div class="container">
-    <div>결과:</div>
+    <div>
+    <span>결과:</span>
+    <select id="sort-select" onchange="location = this.value;">
+        {% if order_by == 'download_num' %}
+            <option value="{% url 'docxmerge:result' resume_info.pk 'download_num' order %}" selected>다운로드순</option>
+            <option value="{% url 'docxmerge:result' resume_info.pk 'like_num' order %}">좋아요순</option>
+        {% else %}
+            <option value="{% url 'docxmerge:result' resume_info.pk 'download_num' order %}">다운로드순</option>
+            <option value="{% url 'docxmerge:result' resume_info.pk 'like_num' order %}" selected>좋아요순</option>
+        {% endif %}
+    </select>
+    {% if order == 0 %}
+        {% if order_by == 'download_num' %}
+            <button onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'download_num' 1 %}'">정렬순서</button>
+        {% else %}
+            <button onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'like_num' 1 %}'">정렬순서</button>
+        {% endif %}
+    {% else %}
+        {% if order_by == 'download_num' %}
+            <button onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'download_num' 0 %}'">정렬순서</button>
+        {% else %}
+            <button onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'like_num' 0 %}'">정렬순서</button>
+        {% endif %}
+    {% endif %}
+    </div>
+
     {% for resume_merged in resume_merged_list %}
         <iframe width=550 height=770 src="{{resume_merged.pdf_file.url}}"></iframe>
         <div>

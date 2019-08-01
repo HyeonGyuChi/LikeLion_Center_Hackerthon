@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -18,7 +18,11 @@
             height: 100%;
         }
 
-        #nav-container {
+        /* .content {
+            min-height: calc(75vh - 110px);
+        } */
+
+        #content-container {
             min-height: 90%;
         }
 
@@ -28,10 +32,6 @@
             left: 0px;
             width: 100%;
             z-index: 10;
-        }
-
-        .content {
-            min-height: calc(75vh - 110px);
         }
 
         .footer-container {
@@ -64,46 +64,38 @@
 </head>
 
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="{% url 'index' %}">Home</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
-            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-                <a class="nav-link" href="#"></a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:mypage' %}">My page</a>
             </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'admin_page' %}">Admin page</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:signup' %}">Sign up</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
+            </li>
+            {% endif %}
         </ul>
-        {% if user.is_authenticated %}
-        <div class="nav-item text-white">환영합니다. {{ user.username }}님! </div>
-        {% endif %}
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false"> Menu
-            </button>
-
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                {% if user.is_authenticated %}
-                <button class="dropdown-item" type="button" onclick="location.href='{% url 'users:mypage' %}'">My page</button>
-                <button class="dropdown-item" onclick="location.href='{% url 'users:logout' %}'">Log out</button>
-                <button class="dropdown-item" type="button" onclick="location.href='{% url 'admin_page' %}'">Admin page</button>
-                {% else %}
-                <button class="dropdown-item" type="button" onclick="location.href='{% url 'users:signup' %}'">Sign up</button>
-                <button class="dropdown-item" type="button" onclick="location.href='{% url 'users:login' %}'">Log in</button>
-                {% endif %}
-            </div>
-        </div>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
     </div>
+    {% if user.is_authenticated %}
+        <div class="nav-item text-black">환영합니다. {{ user.username }}님! </div>
+    {% endif %}
 </nav>
-<div class="content" id="nav-container">
+<div id="content-container">
     <br><br><br>
     {% block contents %}
     {% endblock %}
@@ -114,7 +106,7 @@
             <ul class="list">
                 <li>Contact information: <a id="footer-link" href="https://github.com/qwlake">github.com/qwlake</a></li>
                 <li>E-mail: qwlake@gmail.com</li>
-                <li>Copy right 2019, by JungWoo.</li>
+                <li>Copy right 2019, by 이옷</li>
             </ul>
         </div>
     </footer>
