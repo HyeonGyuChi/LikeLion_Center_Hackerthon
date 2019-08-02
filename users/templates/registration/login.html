@@ -1,23 +1,43 @@
-{% extends 'base.html' %}
-{% block contents %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Log in</title>
+    <title>이옷 | Login</title>
 </head>
 <body>
+<link rel='stylesheet' type='text/css' href="{% static 'users/css/login.css' %}?ver=1">
 <div class="container">
-    <h2>Log in</h2>
-    <form method="POST" action="{% url 'users:login' %}">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
-        <input type="submit" class="btn btn-light" value="sign up">
-    </form>
+    <center><a href="{% url 'index'%}"><img src="{% static 'users/images/main-logo.png'%}" width="120" height="100"  alt="" ></a></center>
+    <br><br>
+    <div class ="login-box">
+    <center>
+        <form method="POST" action="{% url 'users:login' %}">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>
+                        <input class="input-login" name="username" type="email" placeholder="Email address" >
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="input-login" name="password" type="password" placeholder="Password">
+                    </td>
+                </tr>
+            <br><br>
+            </table>
+            <br>
+            <input type="submit" class="btn btn-light" value="LOGIN">
+        </form>
+    </center>
+    <br>
+    <hr class="line">
+    <p class ="go-signup">
+        <a class ="go-signup" href="{% url 'users:signup'%}">Don't have an account?</a>
+    </p>
+    <br>
+    </div>
 </div>
 </body>
 </html>
-{% endblock %}

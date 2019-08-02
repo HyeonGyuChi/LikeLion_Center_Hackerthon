@@ -1,0 +1,60 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); .notosanskr * { font-family: 'Noto Sans KR', sans-serif; }
+
+.container{
+    position: absolute;
+    left: 50%;
+    height:400px;
+    width: 400px;
+    margin: 50px 0px 0px -200px;
+
+}
+
+html, body{
+    height: 100%;
+    background-image: url('../images/login-background.jpg');
+    /* background-color: #53BFAC; */
+    /* background-color: white; */
+}
+
+.btn-light{
+    height: 50px;
+    width:250px;
+    background-color: #53BFAC;
+    border: none;
+}
+
+.input-login{
+    height: 30px;
+    width:240px;  
+    font-family: 'Noto Sans KR';
+
+}
+
+.login-box{
+    /* background-color:  #53BFAC; */
+    background-color: #FBF9F4;
+
+    height: 300px;
+    width: 350px;
+    border-radius: 10px;
+    padding: 20px; 
+    font-family: 'Noto Sans KR';
+
+}
+
+.go-signup{
+    /* margin-left: 160px; */
+    text-align: right;
+    text-decoration:none;
+    color:black;
+    font-family: 'Noto Sans KR';
+}
+
+.go-signup:hover {
+    color:#53BFAC;
+}
+
+.line{
+    border:thin solid;
+    color:#53BFAC;
+}
