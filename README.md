@@ -26,7 +26,7 @@ project : 프로젝트의 기본 메인 App, Settings 등의 정보 포함.
 
 indexapp : 메인 화면(index) 담당 하는 App.
 
-accountsapp : 유저 로그인 및 정보 관리.
+users : 유저 로그인 및 정보 관리.
 
 docxmerge : 이력서 템플릿과 사용자 정보를 합쳐서 보여주는 App.
 
@@ -34,16 +34,23 @@ docxmerge : 이력서 템플릿과 사용자 정보를 합쳐서 보여주는 Ap
 
 ## Others
 
-static/resume_templates : 이력서 템플릿이 들어 있는 폴더
+`media/resume_templates` : 이력서 템플릿이 들어 있는 폴더
 
-static/resume_users : 이력서 템플릿에 사용자 정보를 입힌 파일들이 저장된다.
+`media/resume_users` : 이력서 템플릿에 사용자 정보를 입힌 파일들이 저장된다.
 
-word : docx > xml or xml to docx 과정에서 생성되는 임시 파일들이 저장되는 장소.
+`word` : docx > xml or xml to docx 과정에서 생성되는 임시 파일들이 저장되는 장소.
 > 즉, word는 신경 쓰지 않아도 된다.
 
 
 
 ## Patch note
+
+**2019.08.03 : login page style complete.** @paekjiyeon(지연)
+
+* `login` 로그인 페이지 스타일 변경
+
+***
+
 
 **2019.08.02 : loading page complete.** @qwlake(정우)
 

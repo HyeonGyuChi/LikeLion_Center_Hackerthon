@@ -1,40 +1,43 @@
-{% comment %} {% extends 'base.html' %}
-{% block contents %} {% endcomment %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Log in</title>
+    <title>이옷 | Login</title>
 </head>
 <body>
-<link rel='stylesheet' type='text/css' href="{% static 'users/css/login.css'%}">
+<link rel='stylesheet' type='text/css' href="{% static 'users/css/login.css' %}?ver=1">
 <div class="container">
-    <center><a href="{% url 'index'%}"><img src="{% static 'users/images/이옷mark.png'%}" width="120" height="100"  alt="" ></a></center>
+    <center><a href="{% url 'index'%}"><img src="{% static 'users/images/main-logo.png'%}" width="120" height="100"  alt="" ></a></center>
     <br><br>
     <div class ="login-box">
-    <br><br><br>
     <center>
         <form method="POST" action="{% url 'users:login' %}">
             {% csrf_token %}
-            {% comment %} <table>
-                {{ form.as_table }}
-            </table> {% endcomment %}
-            이메일:
-            <input name="username" type="email">
+            <table>
+                <tr>
+                    <td>
+                        <input class="input-login" name="username" type="email" placeholder="Email address" >
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="input-login" name="password" type="password" placeholder="Password">
+                    </td>
+                </tr>
             <br><br>
-            비밀번호:
-            <input name="password" type="password">
-            <br><br>
+            </table>
+            <br>
             <input type="submit" class="btn btn-light" value="LOGIN">
         </form>
     </center>
     <br>
-    <hr>
-    <h5 class ="account-go"> <a href="{% url 'users:signup'%}">Don't have an account?</a></h5>
+    <hr class="line">
+    <p class ="go-signup">
+        <a class ="go-signup" href="{% url 'users:signup'%}">Don't have an account?</a>
+    </p>
     <br>
     </div>
 </div>
 </body>
 </html>
-{% comment %} {% endblock %} {% endcomment %}

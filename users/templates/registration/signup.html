@@ -5,9 +5,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign up</title>
+    <title>이옷 | Sign up</title>
 </head>
 <body>
+<link rel='stylesheet' type='text/css' href="{% static 'users/css/signup.css' %}?ver=1">
+
 <div class="container">
     <h2>Sign up</h2>
     <form method="POST" action="{% url 'users:signup' %}">
