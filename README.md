@@ -13,6 +13,9 @@
 python -m venv .venv
 source .venv/Scripts/activate
 pip install -r requirements.txt
+python manage.py makemigrations
+python manage.py migrate
+python manage.py collectstatic
 
 ```
 
@@ -42,9 +45,17 @@ word : docx > xml or xml to docx 과정에서 생성되는 임시 파일들이 �
 
 ## Patch note
 
+**2019.08.02 : loading page complete.** @qwlake(정우)
+
+* `resume_make` 로딩중에 gif파일 띄워주는 기능 추가
+* `resume_resule`, `resume_detail` 페이지에서 본인 외에는 접근 불가하게 보안성 강화
+
+***
+
+
 **2019.08.01 : resumelist complete.** @qwlake(정우)
 
-* `result` 페이지에 좋아요순, 다운로드순 정렬 및 오름차순, 내림차순 정렬 기능 추가
+* `resume_result` 페이지에 좋아요순, 다운로드순 정렬 및 오름차순, 내림차순 정렬 기능 추가
 * `base.html` 디자인 변경
 * 기타 버그 수정
 

@@ -6,9 +6,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Form</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'docxmerge/styles.css' %}">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        var frm = $('#submit-form');
+        $(document).on('click', '#submit-btn', function() {
+            $('.form-container').hide();
+            $('.loading').show();
+            // $('.loading').show();
+            $.ajax({
+                type: frm.attr('method'),
+                url: frm.attr('action'),
+                // data: {request:frm, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                data: frm.serialize(),
+                success: function(response){
+                    // alert(response.message);
+                },
+                error: function(request, status, error){
+                    alert("알 수 없는 에러");
+                    window.location.replace("/users/login/");
+                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                },
+            });
+        });
+    </script>
 </head>
 <body>
-<div class="container">
+<div class="container form-container">
     <h2>정보 입력</h2>
     <!-- <form method="POST" action="{% url 'docxmerge:make' %}">
         {% csrf_token %}
@@ -26,14 +50,15 @@
         <br><br>
         <input type="submit" class="btn btn-light" value="make resume">
     </form> -->
-    <form method="POST" action="{% url 'docxmerge:make' %}">
+    <form id="submit-form" method="POST" action="{% url 'docxmerge:make' %}">
         {% csrf_token %}
-        <table>
+        <table id="form-table">
                 {{ form.as_table }}
         </table>
-        <input type="submit" class="btn btn-light" value="make resume">
+        <input id="submit-btn" type="submit" class="btn btn-light">
     </form>
 </div>
+<div class="container loading"></div>
 </body>
 </html>
 {% endblock %}
