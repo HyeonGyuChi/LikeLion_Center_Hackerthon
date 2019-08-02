@@ -1,0 +1,31 @@
+.container{
+    position: absolute;
+    left: 50%;
+    height:400px;
+    width: 400px;
+    margin: 50px 0px 0px -200px;
+
+}
+
+body{
+    /* background-color: #53BFAC; */
+    background-color: white;
+}
+
+.btn-light{
+    height: 50px;
+    width:250px;
+}
+
+.login-box{
+    background-color:  #53BFAC;
+    height: 300px;
+    width: 350px;
+    border-radius: 20px;
+    padding: 20px; 
+}
+
+.account-go{
+    text-align: right;
+    color: white;
+}
