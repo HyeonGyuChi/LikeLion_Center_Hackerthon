@@ -1,5 +1,5 @@
-{% extends 'base.html' %}
-{% block contents %}
+{% comment %} {% extends 'base.html' %}
+{% block contents %} {% endcomment %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -8,16 +8,33 @@
     <title>Log in</title>
 </head>
 <body>
+<link rel='stylesheet' type='text/css' href="{% static 'users/css/login.css'%}">
 <div class="container">
-    <h2>Log in</h2>
-    <form method="POST" action="{% url 'users:login' %}">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
-        <input type="submit" class="btn btn-light" value="sign up">
-    </form>
+    <center><a href="{% url 'index'%}"><img src="{% static 'users/images/이옷mark.png'%}" width="120" height="100"  alt="" ></a></center>
+    <br><br>
+    <div class ="login-box">
+    <br><br><br>
+    <center>
+        <form method="POST" action="{% url 'users:login' %}">
+            {% csrf_token %}
+            {% comment %} <table>
+                {{ form.as_table }}
+            </table> {% endcomment %}
+            이메일:
+            <input name="username" type="email">
+            <br><br>
+            비밀번호:
+            <input name="password" type="password">
+            <br><br>
+            <input type="submit" class="btn btn-light" value="LOGIN">
+        </form>
+    </center>
+    <br>
+    <hr>
+    <h5 class ="account-go"> <a href="{% url 'users:signup'%}">Don't have an account?</a></h5>
+    <br>
+    </div>
 </div>
 </body>
 </html>
-{% endblock %}
+{% comment %} {% endblock %} {% endcomment %}
