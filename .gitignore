@@ -1,9 +1,12 @@
 ﻿# Created by https://www.gitignore.io/api/django,python,pycharm+all,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=django,python,pycharm+all,visualstudiocode
 
-### django files ###
+### custome files ###
 */resume_users/
 word/
+.static_root/
+migrations/
+!__init__.py
 
 ### Django ###
 *.log

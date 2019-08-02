@@ -1,0 +1,7 @@
+.loading {
+    display: none;
+    background-image: url("images/resume_loading.gif");
+	width: 500px;
+    height: 500px;
+    margin-top: 125px;
+}
