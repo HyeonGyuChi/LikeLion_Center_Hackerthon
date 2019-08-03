@@ -5,13 +5,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>이옷 | 이력서 옷입히기</title>
 </head>
 <body>
 <div class="container">
+    <iframe width=550 height=770 src="{{resume_merged.pdf_file.url}}"></iframe>
+    <iframe width=550 height=770 src="{{resume_merged.pdf_file.url}}"></iframe>
+    <iframe width=550 height=770 src="{{resume_merged.pdf_file.url}}"></iframe>
+    <iframe width=550 height=770 src="{{resume_merged.pdf_file.url}}"></iframe>
+    <iframe width=550 height=770 src="{{resume_merged.pdf_file.url}}"></iframe>
+    <br>
     <a href="{% url 'docxmerge:make' %}">이력서 만들기 폼</a>
     <br>
     <a href="{% url 'docxmerge:upload' %}">이력서 템플릿 업로드</a>
+
+    
+
 </div>
 </body>
 </html>
