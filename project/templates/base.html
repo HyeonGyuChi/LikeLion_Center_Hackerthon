@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,200,400,900&display=swap&subset=korean">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -16,6 +17,8 @@
     <style>
         html, body {
             height: 100%;
+            font-family: 'Noto Sans KR', sans-serif ;
+            font-weight: 400;
         }
 
         /* .content {
@@ -37,6 +40,7 @@
         .footer-container {
             position: relative;
             margin: 50 auto -110px;
+            
         }
 
         #footer-link {
@@ -65,7 +69,7 @@
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{% url 'index' %}">Home</a>
+    <a class="navbar-brand" href="{% url 'index' %}">이옷</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
