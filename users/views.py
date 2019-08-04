@@ -4,6 +4,7 @@ from authtools.forms import UserCreationForm
 from .models import User
 from docxmerge.models import ResumeInfo, ResumeMerged
 
+
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -23,3 +24,5 @@ def mypage(request):
     resume_merged_list = []
     resume_info_list = ResumeInfo.objects.filter(user=request.user)
     return render(request, 'mypage.html', {'coin':coin, 'resume_info_list':resume_info_list})
+
+

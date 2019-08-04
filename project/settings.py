@@ -41,6 +41,16 @@ INSTALLED_APPS = [
     'docxmerge',
     'authtools',
     'users',
+    
+    'django.contrib.sites', # sites 추가
+
+    # allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # provider 구글 페이스북 ..소셜로그인 제공업체
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -66,6 +76,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # `allauth` needs this from django
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -137,3 +149,25 @@ LOGOUT_REDIRECT_URL = 'index'
 
 AUTH_USER_MODEL = 'users.User'
 # AUTH_USER_MODEL = 'authtools.User'
+
+# for allauth
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = "/"
+
+# 추가설정 for allauth 
+ACCOUNT_AUTHENTICATION_METHOD = 'email' # email기반 account
+ACCOUNT_EMAIL_REQUIRED = True # must fill in email
+ACCOUNT_EMAIL_VERIFICATION = 'none' # 이메일 인증 x
+
+ACCOUNT_USERNAME_REQUIRED = True # must fill in username // #@gmail.com => ^로 username 설정오류
+# SOCIALACCOUNT_AUTO_SIGNUP = False # social로그인에서 바로 users로 회원가입 방지
+
+ACCOUNT_LOGOUT_ON_GET = True
