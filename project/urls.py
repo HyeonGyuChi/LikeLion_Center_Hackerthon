@@ -25,6 +25,6 @@ urlpatterns = [
     path('indexapp/', include('indexapp.urls')),
     path('docxmerge/', include('docxmerge.urls')),
     path('', indexapp.views.index, name='index'),
-    path('accounts/', include('authtools.urls')),
+    path('accounts/', include('allauth.urls')), # authtools -> allauth
     path('users/', include('users.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
