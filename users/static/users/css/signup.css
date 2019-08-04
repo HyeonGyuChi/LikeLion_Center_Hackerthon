@@ -1,0 +1,43 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); .notosanskr * { font-family: 'Noto Sans KR', sans-serif; }
+
+
+html{
+    height: 100%;
+    margin: 0;
+    /* background-image: url('../images/signup-background.png'); */
+    background: linear-gradient(90deg, #53BFAC 50%, white 50%);
+}
+
+.signup-box{
+    /* background-color:  #53BFAC; */
+    height: 300px;
+    width: 200px;
+    border: solid;
+    border-radius: 10px;
+    padding: 20px; 
+    font-family: 'Noto Sans KR';
+    position: relative;
+    left: 55%;
+}
+
+
+.input-signup{
+    height: 30px;
+    width: 180px;  
+    font-family: 'Noto Sans KR';
+}
+
+.btn-light{
+    background-color: #FBF9F4;
+    height: 30px;
+    width: 90px;
+    font-family: 'Noto Sans KR';    
+    border:none;    
+
+}
+
+.btn-light:hover{
+    background-color:#53BFAC;
+    color: white;
+}
+

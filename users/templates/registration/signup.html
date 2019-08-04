@@ -1,5 +1,5 @@
-{% extends 'base.html' %}
-{% block contents %}
+{% comment %} {% extends 'base.html' %}
+{% block contents %} {% endcomment %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -9,17 +9,51 @@
 </head>
 <body>
 <link rel='stylesheet' type='text/css' href="{% static 'users/css/signup.css' %}?ver=1">
-
-<div class="container">
-    <h2>Sign up</h2>
-    <form method="POST" action="{% url 'users:signup' %}">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
-        <input type="submit" class="btn btn-light" value="sign up">
-    </form>
+    <br><br><br><br><br><br><br>
+    <div class="container">
+        <form method="POST" action="{% url 'users:signup' %}">
+            {% csrf_token %}
+            {% comment %} <table>
+                {{ form.as_table }}
+            </table>   {% endcomment %}
+            <div class ="signup-box">
+                <h3>Sign in</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <input class="input-signup" name="email" type="email" maxlength="255" placeholder="Email address" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input class="input-signup" name="username" type="text" placeholder="User name" maxlength="255">
+                        </td>
+                    </tr>
+                    {% comment %} <tr>
+                        <td>
+                            <ul class="errorlist">
+                                <li>비밀번호가 full name와 너무 유사합니다.</li>
+                                <li>비밀번호가 너무 짧습니다. 최소 8문자를 포함해야 합니다.</li>
+                            </ul>
+                        </td>
+                    </tr> {% endcomment %}
+                    <tr>
+                        <td>
+                            <input class="input-signup" name="password1" type="password" placeholder="Password" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input class="input-signup" name="password2" type="password" placeholder="Retype password">
+                        </td>
+                    </tr>
+                </table>
+                <br>
+            <input type="submit" class="btn btn-light" value="Sign up">
+            </div>
+        </form>
+    </div>
 </div>
 </body>
 </html>
-{% endblock %}
+{% comment %} {% endblock %} {% endcomment %}

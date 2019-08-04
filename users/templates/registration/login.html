@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,10 +7,11 @@
     <title>이옷 | Login</title>
 </head>
 <body>
-<link rel='stylesheet' type='text/css' href="{% static 'users/css/login.css' %}?ver=1">
-<div class="container">
+<link rel='stylesheet' type='text/css' href="{% static 'users/css/login.css' %}?ver=2">
+<div class="container" id="login-box-container">
+
     <center><a href="{% url 'index'%}"><img src="{% static 'users/images/main-logo.png'%}" width="120" height="100"  alt="" ></a></center>
-    <br><br>
+    <br><br>  
     <div class ="login-box">
     <center>
         <form method="POST" action="{% url 'users:login' %}">
