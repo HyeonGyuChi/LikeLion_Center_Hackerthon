@@ -17,11 +17,11 @@
 </body>
 </html>
 
-
+<div class="social_test" style="border:4px dashed blue" >
+<br>
+<h1>----social_test---- 이 div는 지울꺼에요</h1>
 {% load socialaccount %}
 {% providers_media_js %}
-
-<body>
  
     <h1>소셜로그인</h1>
     {% if user.is_authenticated %}
@@ -48,12 +48,13 @@
  
  
     {% endif %}
-    <h2><a href="{% url 'users:login' %}">로그인</a></h2>
+    <h2><a href="{% url 'account_login' %}">로그인</a></h2>
     <h2><a href="{% provider_login_url 'google' %}">구글 로그인</a></h2>
-    <h2><a href="{% url 'users:logout' %}">로그아웃</a></h2>
-    <h2><a href="{% url 'users:signup' %}">회원가입</a></h2>
- 
-</body>
+    <h2><a href="{% url 'account_logout' %}">로그아웃</a></h2>
+    <h2><a href="{% url 'account_signup' %}">회원가입</a></h2>
+<h1>----social_test----</h1>
+<br>
+</div>
 
 
 {% endblock %}
