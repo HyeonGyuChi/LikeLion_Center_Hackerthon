@@ -160,7 +160,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SITE_ID = 1
-LOGIN_REDIRECT_URL = "/"
 
 # 추가설정 for allauth 
 ACCOUNT_AUTHENTICATION_METHOD = 'email' # email기반 account
