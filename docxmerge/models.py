@@ -3,7 +3,7 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.dispatch import receiver
-
+coin = models.IntegerField(default=0)
 class Resume(models.Model):
     resume_name = models.CharField(default="이력서 템플릿", max_length=50)
     file = models.FileField(upload_to="resume_templates", null=True)

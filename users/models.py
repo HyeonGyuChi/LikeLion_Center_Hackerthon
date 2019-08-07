@@ -3,7 +3,7 @@ from authtools.models import AbstractEmailUser
 
 class User(AbstractEmailUser):
     username = models.CharField('full name', max_length=255, blank=True)
-    coin = models.IntegerField(default=0)
+    usercoin = models.IntegerField(default=0)
 
     REQUIRED_FIELDS = ['username']
 

@@ -19,7 +19,12 @@ def signup(request):
     return render(request, 'registration/signup.html', {'form':form})
 
 def mypage(request):
-    coin = request.user.coin
+    usercoin = request.user.usercoin
     resume_merged_list = []
     resume_info_list = ResumeInfo.objects.filter(user=request.user)
-    return render(request, 'mypage.html', {'coin':coin, 'resume_info_list':resume_info_list})
+    return render(request, 'mypage.html', {'usercoin':usercoin, 'resume_info_list':resume_info_list})
+
+def coinx(request):
+    usercoin = request.user.usercoin
+    usercoin = usercoin + 1000
+    return render(request, 'index.html')
