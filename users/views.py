@@ -25,6 +25,8 @@ def mypage(request):
     return render(request, 'mypage.html', {'usercoin':usercoin, 'resume_info_list':resume_info_list})
 
 def coinx(request):
-    usercoin = request.user.usercoin
-    usercoin = usercoin + 1000
-    return render(request, 'index.html')
+    user = request.user
+    newusercoin = user.usercoin + 1000
+    user.usercoin = newusercoin
+    user.save()
+    return render(request,'index.html')
