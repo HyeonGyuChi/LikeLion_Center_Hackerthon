@@ -9,7 +9,7 @@ class ResumeInfoForm(forms.ModelForm):
 class UploadFileForm(forms.ModelForm):
     class Meta:
         model = Resume
-        fields = ('resume_name', 'file')
+        fields = ('resume_name', 'file', 'coin')
 
     def __init__(self, *args, **kwargs):
         super(UploadFileForm, self).__init__(*args, **kwargs)

@@ -82,7 +82,7 @@ def resume_upload(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            instance = Resume(resume_name=form.cleaned_data['resume_name'], file=form.cleaned_data['file'])
+            instance = Resume(resume_name=form.cleaned_data['resume_name'], file=form.cleaned_data['file'], coin=form.cleaned_data['coin'])
             instance.save()
             return redirect(reverse('index'))
     else:
