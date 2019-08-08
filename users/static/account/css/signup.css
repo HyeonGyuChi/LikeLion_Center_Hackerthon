@@ -1,0 +1,80 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); .notosanskr * { font-family: 'Noto Sans KR', sans-serif; }
+
+
+html{
+    height: 100%;
+    margin: 0;
+    /* background-image: url('../images/signup-background.png'); */
+    /* background: linear-gradient(90deg, #53BFAC 50%, white 50%); */
+}
+
+.signup-box{
+    /* background-color:  #53BFAC; */
+    height: 600px;
+    width: 500px;
+    border: none;
+    border-radius: 10px;
+    padding: 20px; 
+    font-family: 'Noto Sans KR';
+    position: relative;
+    /* left: 30%; */
+}
+
+.input-signup{
+    height: 50px;
+    width: 300px;  
+    font-family: 'Noto Sans KR';
+}
+
+.btn-light{
+    /* background-color: #FBF9F4; */
+    background-color:#53BFAC;
+    color: white;
+    height: 62px;
+    width: 100%;
+    font-family: 'Noto Sans KR';    
+    border:none;    
+    /* margin-left: 70%; */
+}
+
+.btn-light:hover{
+    /* background-color:#53BFAC;
+    color: white; */
+    background-color: #53BFAC;
+    color: black;
+
+}
+
+#signup-page{
+    font-family: 'Noto Sans KR';
+    font-size: 40px;
+    color: black;
+    text-decoration: none;
+    margin-left: 15%;
+}
+
+.line{
+    border:thin solid;
+    color:#53BFAC;
+}
+
+.feature-signup{
+    padding-right: 50px;
+    
+}
+
+h1{
+    margin-left: 15%;
+}
+
+th,td{
+    padding: 10px;
+}
+
+#login-go{
+    color:#53BFAC;
+}
+
+#login-go:hover{
+    color:#058452;
+}

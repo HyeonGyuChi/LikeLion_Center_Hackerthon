@@ -1,0 +1,83 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); .notosanskr * { font-family: 'Noto Sans KR', sans-serif; }
+
+
+html{
+    height: 100%;
+    margin: 0;
+    /* background-image: url('../images/signup-background.png'); */
+    /* background: linear-gradient(90deg, #53BFAC 50%, white 50%); */
+}
+
+.line{
+    border:thin solid;
+    color:#53BFAC;
+    width: 100%;
+}
+
+
+#social-signup-page{
+    font-family: 'Noto Sans KR';
+    font-size: 40px;
+    color: black;
+    text-decoration: none;
+    margin-left: 15%;
+    padding-bottom: 30%;
+}
+
+
+.signup-box{
+    /* background-color:  #53BFAC; */
+    height: 400px;
+    width: 500px;
+    border: solid #53BFAC;
+    border-radius: 10px;
+    padding: 30px; 
+    font-family: 'Noto Sans KR';
+    position: relative;
+    /* left: 30%; */
+}
+
+.feature-signup{
+    padding-right: 50px;
+    text-align : left;
+}
+
+
+.btn-light{
+    /* background-color: #FBF9F4; */
+    background-color:#53BFAC;
+    color: white;
+    height: 62px;
+    width: 100%;
+    font-family: 'Noto Sans KR';    
+    border:none;    
+    border-radius: 5px;
+    font-size: 15px;
+    /* margin-left: 70%; */
+}
+
+.btn-light:hover{
+    /* background-color:#53BFAC;
+    color: white; */
+    background-color: #53BFAC;
+    color: black;
+    font-size: 15px;
+
+}
+
+
+.notice{
+    font-family: 'Noto Sans KR';
+}
+
+
+.input-signup{
+    height: 50px;
+    width: 300px;  
+    font-family: 'Noto Sans KR';
+    border-spacing: 0 10px;
+}
+
+th, td {
+    padding: 10px;
+}
