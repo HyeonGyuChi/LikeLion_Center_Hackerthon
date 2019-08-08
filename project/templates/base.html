@@ -1,115 +1,123 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
-    <style>
-        html, body {
-            height: 100%;
-        }
+    {% load static %} 
+        <!DOCTYPE html>
+        <html lang="ko">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="description" content="">
+            <meta name="author" content="">
 
-        /* .content {
-            min-height: calc(75vh - 110px);
-        } */
+            <title>이옷 - 이력서 옷입히기</title>
 
-        #content-container {
-            min-height: 90%;
-        }
+            <!-- Custom fonts for this theme -->
+                <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+            <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
-        .navbar {
-            position: fixed;
-            top: 0px;
-            left: 0px;
-            width: 100%;
-            z-index: 10;
-        }
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-        .footer-container {
-            position: relative;
-            margin: 50 auto -110px;
-        }
+            <!-- Theme CSS -->
+            
+            <link href="{% static 'css/freelancer.css' %}" rel="stylesheet">
+            <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        </head>
 
-        #footer-link {
-            color: black;
-            text-decoration: none;
-        }
+        <body>
+        
+        
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="{% url 'index' %}"><img src="{% static 'lee.png' %}" alt="이옷" width='80px' height='50px'></a>
+                <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'users:mypage' %}">My page</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'account_logout' %}">Log out</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'admin_page' %}">Admin page</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'account_signup' %}">Sign up</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                    
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'account_login' %}">Log in</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                </div>
+            </div>
+            </nav>
 
-        #footer-link:hover {
-            background-color: #FF6F61;
-            color: white;
-        }
-
-        #footer-wrapper {
-            text-align: center;
-        }
-
-        .list {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-
-    </style>
-</head>
-
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{% url 'index' %}">Home</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            {% if user.is_authenticated %}
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'users:mypage' %}">My page</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'account_logout' %}">Log out</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'admin_page' %}">Admin page</a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'account_signup' %}">Sign up</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'account_login' %}">Log in</a>
-            </li>
-            {% endif %}
-        </ul>
-    </div>
-    {% if user.is_authenticated %}
-        <div class="nav-item text-black">환영합니다. {{ user.name }}님! </div>
-    {% endif %}
-</nav>
-<div id="content-container">
-    <br><br><br>
-    {% block contents %}
-    {% endblock %}
-</div>
-<div class="footer-container">
-    <footer>
-        <div id="footer-wrapper">
-            <ul class="list">
-                <li>Contact information: <a id="footer-link" href="https://github.com/qwlake">github.com/qwlake</a></li>
-                <li>E-mail: qwlake@gmail.com</li>
-                <li>Copy right 2019, by 이옷</li>
-            </ul>
+        
+        
+        <br>
+        <br>
+        <br>
+        <div id="content-container">
+            
+            {% block contents %}
+            {% endblock %}
         </div>
-    </footer>
-</div>
-</body>
-</html>
+        
+        <div class="footer-container">
+            
+            <footer class="footer text-center">
+            <div class="container">
+                <div class="row">
+
+                <!-- Footer Location -->
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <h4 class="text-uppercase mb-4">E-mail: qwlake@gmail.com</h4>
+                    <p class="lead mb-0"><a id="footer-link" href="https://github.com/qwlake">github.com/qwlake</a>
+                    <br>Seoul</p>
+                </div>
+
+                <!-- Footer Social Icons -->
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <h4 class="text-uppercase mb-4">Around the Web</h4>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#">
+                    <i class="fab fa-fw fa-facebook-f"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#">
+                    <i class="fab fa-fw fa-twitter"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#">
+                    <i class="fab fa-fw fa-linkedin-in"></i>
+                    </a>
+                    
+                </div>
+
+                <!-- Footer About Text -->
+                <div class="col-lg-4">
+                    <h4 class="text-uppercase mb-4">About Likelion</h4>
+                    <p class="lead mb-0">Copy right 2019, by 
+                    <a href="#">이옷</a>.</p>
+                </div>
+
+                </div>
+            </div>
+            </footer>
+        </div>
+
+        <section class="copyright py-4 text-center text-white">
+        <div class="container">
+            <small>Copyright &copy; Your 이옷 2019</small>
+        </div>
+        </section>
+
+        </body>
+        </html>
+
+        
