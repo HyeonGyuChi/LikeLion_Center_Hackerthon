@@ -1,5 +1,5 @@
 from django.db import models
-from authtools.models import AbstractEmailUser
+# from authtools.models import AbstractEmailUser
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
@@ -54,8 +54,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_absolute_url(self):
         return "/users/%i/" % (self.pk)
 
-    def get_full_name(self):
-        return self.username
 
 
 

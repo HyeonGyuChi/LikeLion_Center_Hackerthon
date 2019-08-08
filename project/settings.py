@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'indexapp',
     'docxmerge',
-    'authtools',
     'users',
     
     'django.contrib.sites', # sites 추가
