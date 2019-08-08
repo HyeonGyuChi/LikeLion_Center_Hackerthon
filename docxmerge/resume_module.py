@@ -7,6 +7,7 @@ from win32com.client import pythoncom
 from django.conf import settings
 from Crypto import Random
 from Crypto.Cipher import AES
+from pdf2image import convert_from_path
 
 from .models import Resume, ResumeMerged
 from . import resume_config
@@ -79,6 +80,7 @@ def merge(info, resume_info):
         template_name_list = []
         new_name_list = []
         pdf_name_list = []
+        img_name_list = []
         resume_merged_list = []
 
         # docx 파일 템플릿 리스트
@@ -101,11 +103,14 @@ def merge(info, resume_info):
             # 'media/resume_users/{user_path}/{resume_info.user}-{template_name}'
             new_name = user_path + "/" + resume_info.user.username + "-" + template_name
             pdf_name = user_path + "/" + resume_info.user.username + "-" + template_name[:template_name.rfind(".")] + '.pdf'
+            img_name = user_path + "/" + resume_info.user.username + "-" + template_name[:template_name.rfind(".")] + '.jpg'
             new_name_list.append(new_name)
             pdf_name_list.append(pdf_name)
+            img_name_list.append(img_name)
 
             resume_merged.docx_file = new_name[new_name.find('/')+1:]
             resume_merged.pdf_file = pdf_name[pdf_name.find('/')+1:]
+            resume_merged.img_file = img_name[img_name.find('/')+1:]
             resume_merged.save()
 
             # 병합될 파일
@@ -146,6 +151,12 @@ def merge(info, resume_info):
         for t in threads:
             t.join()
         print("convert end", datetime.now() - starttime)
+
+        # convert pdf to image
+        for pdf_name, img_name in zip(pdf_name_list, img_name_list):
+            pages = convert_from_path(pdf_name, 500)
+            for page in pages:
+                page.save(img_name, 'JPEG')
 
         ## convert docx to pdf with non-thread
         # starttime = datetime.now()

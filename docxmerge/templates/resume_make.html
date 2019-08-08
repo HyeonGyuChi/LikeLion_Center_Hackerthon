@@ -6,18 +6,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Form</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'docxmerge/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'docxmerge/css/styles.css' %}">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
         var frm = $('#submit-form');
         $(document).on('click', '#submit-btn', function() {
             $('.form-container').hide();
             $('.loading').show();
-            // $('.loading').show();
             $.ajax({
                 type: frm.attr('method'),
                 url: frm.attr('action'),
-                // data: {request:frm, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
                 data: frm.serialize(),
                 success: function(response){
                     // alert(response.message);

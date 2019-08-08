@@ -45,6 +45,14 @@ docxmerge : 이력서 템플릿과 사용자 정보를 합쳐서 보여주는 Ap
 
 ## Patch note
 
+**2019.08.03 : login page style complete.** @qwlake(정우)
+
+* `result` 페이지 모달로 변경
+* `detail` 페이지 삭제
+
+***
+
+
 **2019.08.03 : login page style complete.** @paekjiyeon(지연)
 
 * `login` 로그인 페이지 스타일 변경

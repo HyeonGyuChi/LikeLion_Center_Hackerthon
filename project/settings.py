@@ -51,6 +51,9 @@ INSTALLED_APPS = [
 
     # provider 구글 페이스북 ..소셜로그인 제공업체
     'allauth.socialaccount.providers.google',
+
+    # # poppler pdf file renderer
+    # 'poppler'
 ]
 
 MIDDLEWARE = [
@@ -134,13 +137,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'docxmerge', 'static'),
-]
+MEDIA_URL = '/media/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, '.static_root')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
 
 # # Register stuff
 LOGIN_URL = 'login'
@@ -148,7 +148,6 @@ LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
 
 AUTH_USER_MODEL = 'users.User'
-# AUTH_USER_MODEL = 'authtools.User'
 
 # for allauth
 AUTHENTICATION_BACKENDS = (
@@ -166,8 +165,9 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email' # email기반 account
 ACCOUNT_EMAIL_REQUIRED = True # must fill in email
 ACCOUNT_EMAIL_VERIFICATION = 'none' # 이메일 인증 x
 
-ACCOUNT_USERNAME_REQUIRED = True # must fill in username // #@gmail.com => ^로 username 설정오류
+ACCOUNT_USERNAME_REQUIRED = False # must fill in username // #@gmail.com => ^로 username 설정오류
 SOCIALACCOUNT_AUTO_SIGNUP = False # social로그인에서 바로 users로 회원가입 방지
 
-
 ACCOUNT_LOGOUT_ON_GET = True # logout시 바로 로그아웃
+
+# ACCOUNT_USER_MODEL_USERNAME_FIELD = None

@@ -8,62 +8,52 @@
     <title>이옷 | Sign up</title>
 </head>
 <body>
-<link rel='stylesheet' type='text/css'  href="{% static 'account/css/signup.css' %}?ver=1">
-
-<a id="signup-page" href="{{ signup_url }}"><strong>회원가입</strong><a>
-<hr class="line">
-<br><br>
-<center>
-  <div class ="signup-box">
-    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-      {% csrf_token %}
-      {% comment %} {{ form.as_p }} {% endcomment %}
-  <table>
-      <tr>
-        <th class="feature-signup">이메일 
-        </th>
-          <td>
-            <input class="input-signup" type ="email" name="email" placeholder="이메일" required id="id_email">
-          </td>
-      </tr>
-      
-      <tr>
-        <th class="feature-signup">이름 
-        </th>
-          <td>
-            <input class="input-signup"  type ="text" name="username" placeholder="이름" autofocus="autofocus" minlength="1" maxlength="255" required id="id_username">
-          </td>
-      </tr>
-      <tr>
-        <th class="feature-signup">비밀번호 
-        </th>
-          <td>     
-      <input class="input-signup"  type ="password" name="password1" placeholder="비밀번호" required id="id_password1">
-          </td>
-      </tr>
-      <tr>
-        <th class="feature-signup">비밀번호  (확인) 
-        </th>
-          <td>
-      <input class="input-signup"  type ="password" name="password2" placeholder="비밀번호(확인)" required id="id_password2">
-          </td>
-      </tr>
-  </table>      
-      {% if redirect_field_value %}
-      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-      {% endif %}
-      <br>
-      <button class="btn btn-light" type="submit">확인</button>
-
-    </form>
-
-<br>
-<hr class="line">
-    <h6>이미 계정이 있으십니까? <a id="login-go" href="{{ login_url }}">로그인</a></h6>
-  </div>
-  </center>
-
-<body>
+<link rel='stylesheet' type='text/css' href="{% static 'users/css/signup.css' %}?ver=1">
+    <br><br><br><br><br><br><br>
+    <div class="container">
+        <form method="POST" action="{% url 'users:account_signup' %}">
+            {% csrf_token %}
+            <div class ="signup-box">
+                <h3>Sign in</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <input class="input-signup" name="email" type="email" maxlength="255" placeholder="Email address" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input class="input-signup" name="username" type="text" placeholder="Name" maxlength="255">
+                        </td>
+                    </tr>
+                    {% comment %} <tr>
+                        <td>
+                            <ul class="errorlist">
+                                <li>비밀번호가 full name와 너무 유사합니다.</li>
+                                <li>비밀번호가 너무 짧습니다. 최소 8문자를 포함해야 합니다.</li>
+                            </ul>
+                        </td>
+                    </tr> {% endcomment %}
+                    <tr>
+                        <td>
+                            <input class="input-signup" name="password1" type="password" placeholder="Password" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input class="input-signup" name="password2" type="password" placeholder="Retype password">
+                        </td>
+                    </tr>
+                    {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+                </table>
+                <br>
+            <input type="submit" class="btn btn-light" value="Sign up">
+            </div>
+        </form>
+    </div>
+</div>
+</body>
 </html>
-
 {% endblock %}
