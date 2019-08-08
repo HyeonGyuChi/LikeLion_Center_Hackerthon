@@ -10,29 +10,30 @@
 </head>
 <body>
 <link rel='stylesheet' type='text/css'  href="{% static 'socialaccount/css/signup.css' %}?ver=1">
-
-<a id="social-signup-page" href="{{ social_signup_url }}"><strong>소셜계정 회원가입</strong><a>
+<br><br>
+<a id="social-signup-page" href="#"><strong>소셜계정 회원가입</strong><a>
 <br>
 <hr class="line">
 <br><br><br><br>
 
 <center>
   <div class ="signup-box">
-    <form class="signup" id="signup_form" method="post" action="#">
+    <form class="signup" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
+    {% csrf_token %}
 
     <p class="notice"><strong>{{ account.get_provider.name }}</strong>의 계정을 이용하여 로그인합니다. <br>
         이옷에서 이용할 <strong>이메일</strong>과 <strong>이름</strong>을 작성해주세요.  
     </p>
     <hr class="line">
     <br>
-      <!--{% csrf_token %}-->
+      
       <input type="hidden" name="csrfmiddlewaretoken" value="TMAbVWT8Djm8J8kQHIwL7jnAVRjOS8fVfmK1nygHGBE0J2sQ77aUs7Lqh3oupyO1">
       <table>
         <tr>
           <th class="feature-signup">이메일 
           </th>
           <td>
-            <input class="input-signup" type="email" name="email" value="qwlake@gmail.com" placeholder="이메일 주소" required="" id="id_email"></label>
+            <input class="input-signup" type="email" name="email" value="" placeholder="이메일 주소" required="" id="id_email"></label>
           </td>
       </tr>
       
