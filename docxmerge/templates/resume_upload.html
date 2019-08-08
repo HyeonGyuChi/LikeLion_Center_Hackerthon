@@ -9,6 +9,9 @@
 </head>
 <body>
 <div class="container">
+    <br>
+    <br>
+    <br>
     <form method="post" action="{% url 'docxmerge:upload' %}" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
         {{ form.as_p }}

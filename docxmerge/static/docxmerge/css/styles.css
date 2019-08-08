@@ -5,3 +5,9 @@
     height: 500px;
     margin-top: 125px;
 }
+
+#sort-select {
+    margin-left: auto;
+    margin-right: auto;
+    width: 230px;
+}

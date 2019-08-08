@@ -7,6 +7,8 @@
     <meta charset="UTF-8">
     <title>Result</title>
     
+    <link rel="stylesheet" type="text/css" href="{% static 'docxmerge/css/styles.css' %}">
+
     <!-- Custom fonts for this theme -->
     <link href="{% static 'docxmerge/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -24,7 +26,7 @@
     <script src="{% static 'docxmerge/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
 
     <!-- Contact Form JavaScript -->
-    <script src="{% static 'docxmerge/js/jqBootstrapValidation.js"></script>
+    <script src="{% static 'docxmerge/js/jqBootstrapValidation.js' %}"></script>
     <script src="{% static 'docxmerge/js/contact_me.js' %}"></script>
 
     <!-- Custom scripts for this template -->
@@ -92,7 +94,7 @@
 
 <!-- Portfolio Item -->
 <div class="col-md-6 col-lg-4">
-    <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+    <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#modal{{ resume_merged.pk }}">
         <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
             <div class="portfolio-item-caption-content text-center text-white">
                 <i class="fas fa-plus fa-3x"></i>
@@ -103,7 +105,7 @@
 </div>
 
 <!-- Portfolio Modal -->
-<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-labelledby="portfolioModal1Label" aria-hidden="true">
+<div class="portfolio-modal modal fade" id="modal{{ resume_merged.pk }}" tabindex="-1" role="dialog" aria-labelledby="modal{{ resume_merged.pk }}Label" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -154,30 +156,32 @@
             <!-- /.row -->
         </div>
     </section>
-    <div>
-    <span>결과:</span>
-    <select id="sort-select" onchange="location = this.value;">
-        {% if order_by == 'download_num' %}
-            <option value="{% url 'docxmerge:result' resume_info.pk 'download_num' order %}" selected>다운로드순</option>
-            <option value="{% url 'docxmerge:result' resume_info.pk 'like_num' order %}">좋아요순</option>
+
+    <div class="input-group mb-3" id="sort-select">
+        <select class="custom-select" id="inputGroupSelect01" onchange="location = this.value;">
+            {% if order_by == 'download_num' %}
+                <option value="{% url 'docxmerge:result' resume_info.pk 'download_num' order %}" selected>다운로드순</option>
+                <option value="{% url 'docxmerge:result' resume_info.pk 'like_num' order %}">좋아요순</option>
+            {% else %}
+                <option value="{% url 'docxmerge:result' resume_info.pk 'download_num' order %}">다운로드순</option>
+                <option value="{% url 'docxmerge:result' resume_info.pk 'like_num' order %}" selected>좋아요순</option>
+            {% endif %}
+        </select>
+        <div class="input-group-append">
+        {% if order == 0 %}
+            {% if order_by == 'download_num' %}
+                <button class="btn btn-outline-secondary input-group-text" onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'download_num' 1 %}'">정렬순서</button>
+            {% else %}
+                <button class="btn btn-outline-secondary input-group-text" onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'like_num' 1 %}'">정렬순서</button>
+            {% endif %}
         {% else %}
-            <option value="{% url 'docxmerge:result' resume_info.pk 'download_num' order %}">다운로드순</option>
-            <option value="{% url 'docxmerge:result' resume_info.pk 'like_num' order %}" selected>좋아요순</option>
+            {% if order_by == 'download_num' %}
+                <button class="btn btn-outline-secondary input-group-text" onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'download_num' 0 %}'">정렬순서</button>
+            {% else %}
+                <button class="btn btn-outline-secondary input-group-text" onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'like_num' 0 %}'">정렬순서</button>
+            {% endif %}
         {% endif %}
-    </select>
-    {% if order == 0 %}
-        {% if order_by == 'download_num' %}
-            <button onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'download_num' 1 %}'">정렬순서</button>
-        {% else %}
-            <button onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'like_num' 1 %}'">정렬순서</button>
-        {% endif %}
-    {% else %}
-        {% if order_by == 'download_num' %}
-            <button onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'download_num' 0 %}'">정렬순서</button>
-        {% else %}
-            <button onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'like_num' 0 %}'">정렬순서</button>
-        {% endif %}
-    {% endif %}
+        </div>
     </div>
 </header>
 
