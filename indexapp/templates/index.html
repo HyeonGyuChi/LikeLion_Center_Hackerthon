@@ -17,44 +17,5 @@
 </body>
 </html>
 
-<div class="social_test" style="border:4px dashed blue" >
-<br>
-<h1>----social_test---- 이 div는 지울꺼에요</h1>
-{% load socialaccount %}
-{% providers_media_js %}
- 
-    <h1>소셜로그인</h1>
-    {% if user.is_authenticated %}
-    <span>{{ user }}님이 로그인중입니다.</span>
- 
-    {% for account in user.socialaccount_set.all %}
- 
-     {% comment %} show avatar from url {% endcomment %}
-     <h2 style="text-transform:capitalize;">{{ account.provider }} account data</h2>
- 
-     <p><img width="50" height="50" src="{{ account.get_avatar_url }}"/></p>
- 
-     <p>UID: <a href="{{ account.extra_data.link }}">{{ account.uid }}</a></p>
- 
-     <p>Username: {{ account.extra_data.name }}</p>
-      <p>First Name: {{ account.extra_data.first_name }}</p>
-      <p>Last Name: {{ account.extra_data.last_name }}</p>
- 
-      <p>Dashboard Link:
-      <a href="{{ account.extra_data.link }}">{{ account.extra_data.link }}</a></p>
-      {% empty %}
-      <p>you haven't any social account please</p>
-    {% endfor %}
- 
- 
-    {% endif %}
-    <h2><a href="{% url 'account_login' %}">로그인</a></h2>
-    <h2><a href="{% provider_login_url 'google' %}">구글 로그인</a></h2>
-    <h2><a href="{% url 'account_logout' %}">로그아웃</a></h2>
-    <h2><a href="{% url 'account_signup' %}">회원가입</a></h2>
-<h1>----social_test----</h1>
-<br>
-</div>
-
 
 {% endblock %}
