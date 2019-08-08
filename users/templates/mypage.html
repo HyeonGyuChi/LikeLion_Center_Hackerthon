@@ -12,8 +12,8 @@
     <h2>My Page</h2>
     <br>
     <div>
-        <span>내 코인 : {{ coin }}</span>
-        <button type="button" class="btn btn-light" onclick="location.href='#'">코인 충전</button>
+        <span>내 코인 : {{ user.usercoin }}</span>
+        <button type="button" class="btn btn-light" onclick="location.href='{% url 'users:coin_add' 1000 %}'">코인 충전</button>
     </div>
     <br>
     <div class="card-group">

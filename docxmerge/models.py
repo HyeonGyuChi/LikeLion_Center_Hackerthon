@@ -8,6 +8,7 @@ class Resume(models.Model):
     resume_name = models.CharField(default="이력서 템플릿", max_length=50)
     file = models.FileField(upload_to="resume_templates", null=True)
     download_num = models.IntegerField(default=0)
+    coin = models.IntegerField(default=0)
     like_user_set = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         blank=True,
