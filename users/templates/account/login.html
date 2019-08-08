@@ -4,44 +4,49 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="kr">
-  <head>
-      <meta charset="UTF-8">
-      <title>이옷 | Login</title>
-  </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>이옷 | Login</title>
+</head>
+<body>
+<link rel='stylesheet' type='text/css' href="{% static 'users/css/login.css' %}?ver=2">
+<div class="container" id="login-box-container">
 
-  <body>
-  <link rel='stylesheet' type='text/css' href="{% static 'users/css/login.css' %}?ver=1">
-  <div class="container">
-    <h1>로그인</h1>
-
-    {% get_providers as socialaccount_providers %}
-
-    {% if socialaccount_providers %}
-
-    <p>{% blocktrans with site.name as site_name %}Don't have an account? <a href="{{ signup_url }}">회원가입</a>
-    for a {{ site_name }}{% endblocktrans %}</p>
-
-    <div class="socialaccount_ballot">
-
-      <ul class="socialaccount_providers">
-        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-      </ul>
-      <ul class="socialaccount_providers">
-        <h2><a href="{% provider_login_url 'google' %}">구글 로그인</a></h2>
-      </ul>
-
+    <center><a href="{% url 'index' %}"><img src="{% static 'users/images/main-logo.png'%}" width="120" height="100"  alt="" ></a></center>
+    <br><br>  
+    <div class ="login-box">
+    <center>
+        <form method="POST" action="{% url 'users:account_login' %}">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>
+                        <input class="input-login" name="login" type="email" placeholder="Email address" >
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="input-login" name="password" type="password" placeholder="Password">
+                    </td>
+                </tr>
+            <br><br>
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            </table>
+            <br>
+            <input type="submit" class="btn btn-light" value="LOGIN">
+        </form>
+    </center>
+    <br>
+    <hr class="line">
+    <p class ="go-signup">
+        <div class ="go-signup"><a class ="go-signup" href="{% provider_login_url 'google' %}">구글 로그인</a></div>
+        <div class ="go-signup"><a class ="go-signup" href="{% url 'users:account_signup' %}">Don't have an account?</a></div>
+    </p>
+    <br>
     </div>
-
-    {% endif %}
-
-    <form class="login" method="POST" action="{% url 'account_login' %}">
-      {% csrf_token %}
-      {{ form.as_table }}
-      {% if redirect_field_value %}
-      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-      {% endif %}
-      <button class="primaryAction" type="submit">로그인</button>
-  </form>
-  </body>
+</div>
+</body>
 </html>
