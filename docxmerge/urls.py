@@ -24,7 +24,6 @@ urlpatterns = [
     path('resume_make/', views.resume_make, name="make"),
     path('resume_result/<int:pk>', views.resume_result, name="result"),
     path('resume_result/<int:pk>/<str:order_by>/<int:order>', views.resume_result, name="result"),
-    path('resume_detail/<int:pk>', views.resume_detail, name="detail"),
     path('resume_download/<int:pk>/<str:type>', views.resume_download, name="download"),
     path('resume_like/', views.resume_like, name='like'),
 ]

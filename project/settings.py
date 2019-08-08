@@ -51,6 +51,9 @@ INSTALLED_APPS = [
 
     # provider 구글 페이스북 ..소셜로그인 제공업체
     'allauth.socialaccount.providers.google',
+
+    # # poppler pdf file renderer
+    # 'poppler'
 ]
 
 MIDDLEWARE = [
@@ -134,9 +137,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'docxmerge', 'static'),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'docxmerge', 'static'),
+# ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, '.static_root')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
