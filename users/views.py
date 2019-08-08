@@ -26,9 +26,6 @@ def mypage(request):
     resume_info_list = ResumeInfo.objects.filter(user=request.user)
     return render(request, 'mypage.html', {'usercoin':usercoin, 'resume_info_list':resume_info_list})
 
-def coinx(request):
-    user = request.user
-    newusercoin = user.usercoin + 1000
-    user.usercoin = newusercoin
-    user.save()
-    return render(request,'index.html')
+def coin_add(request, amount):
+    request.user.coin_add(amount)       # 코인 증가
+    return redirect('users:mypage')

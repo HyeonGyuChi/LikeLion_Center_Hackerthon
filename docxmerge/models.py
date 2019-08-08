@@ -47,7 +47,6 @@ class ResumeInfo(models.Model):
 
 class ResumeMerged(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    coin2 = models.IntegerField(default=0)
     resume = models.ForeignKey('Resume', on_delete=models.CASCADE)
     resume_info = models.ForeignKey('ResumeInfo', on_delete=models.CASCADE)
     docx_file = models.FileField(null=True)

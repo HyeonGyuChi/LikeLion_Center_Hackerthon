@@ -9,3 +9,11 @@ class User(AbstractEmailUser):
 
     def get_full_name(self):
         return self.username
+
+    def coin_add(self, amount):
+        self.usercoin += amount
+        self.save()
+    
+    def coin_sub(self, amount):
+        self.usercoin -= amount
+        self.save()

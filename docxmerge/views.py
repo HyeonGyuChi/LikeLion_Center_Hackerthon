@@ -84,6 +84,8 @@ def resume_upload(request):
 
 def resume_download(request, pk, type):
     resume_merged = get_object_or_404(ResumeMerged, pk=pk)
+    cost = resume_merged.resume.coin
+    request.user.coin_sub(cost)     # coin 차감
     if type == 'pdf':
         content_type = 'application/force-download'
     else:

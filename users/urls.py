@@ -23,5 +23,5 @@ urlpatterns = [
     path('login', LoginView.as_view(), name="login"),  #>  account_login
 #    path('logout', LogoutView.as_view(), name="logout"),  > account_logout
     path('mypage', views.mypage, name="mypage"),
-    path('coinx', views.coinx, name="coinx"),
+    path('coin_add/<int:amount>', views.coin_add, name="coin_add"),
 ]
