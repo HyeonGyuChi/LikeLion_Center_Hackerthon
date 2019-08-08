@@ -161,6 +161,20 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID = 1
 
+# Provider
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+
 # 추가설정 for allauth 
 ACCOUNT_AUTHENTICATION_METHOD = 'email' # email기반 account
 ACCOUNT_EMAIL_REQUIRED = True # must fill in email
@@ -171,3 +185,14 @@ SOCIALACCOUNT_AUTO_SIGNUP = False # social로그인에서 바로 users로 회원
 
 
 ACCOUNT_LOGOUT_ON_GET = True # logout시 바로 로그아웃
+
+# CustomForm
+ACCOUNT_FORMS = {
+    'login': 'users.forms.MyCustomLoginForm', # accounts/login
+#    'signup': 'users.forms.MyCustomSignupForm', # accounts/signup
+}
+
+SOCIALACCOUNT_FORMS = {
+    'signup': 'users.forms.MyCustomSocialSignupForm', # socialaccount/signp
+    }
+

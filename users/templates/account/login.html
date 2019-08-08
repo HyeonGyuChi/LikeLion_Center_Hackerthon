@@ -3,6 +3,7 @@
 {% providers_media_js %}
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="kr">
   <head>
@@ -11,37 +12,41 @@
   </head>
 
   <body>
-  <link rel='stylesheet' type='text/css' href="{% static 'users/css/login.css' %}?ver=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' type='text/css' href="{% static 'users/css/bootstrap-social.css' %}">
+    <link rel='stylesheet' type='text/css' href="{% static 'users/css/login.css' %}?ver=1">
+  
   <div class="container">
-    <h1>로그인</h1>
-
+      <center><a href="{% url 'index'%}"><img src="{% static 'users/images/main-logo.png'%}" width="120" height="100"  alt="" ></a></center>
+      <br><br>
     {% get_providers as socialaccount_providers %}
 
-    {% if socialaccount_providers %}
+    
 
-    <p>{% blocktrans with site.name as site_name %}Don't have an account? <a href="{{ signup_url }}">회원가입</a>
-    for a {{ site_name }}{% endblocktrans %}</p>
-
-    <div class="socialaccount_ballot">
-
-      <ul class="socialaccount_providers">
-        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-      </ul>
-      <ul class="socialaccount_providers">
-        <h2><a href="{% provider_login_url 'google' %}">구글 로그인</a></h2>
-      </ul>
-
+    <div class ="login-box">
+    <center>
+      <form class="login" method="POST" action="{% url 'account_login' %}">
+        
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <button class="btn btn-light" type="submit">LOGIN</button>
+      </form>
+    </center>
+    <br>
+    <hr class="line">
+    <p class ="go-signup">
+        <a class ="go-signup" href="#">Don't have an account?</a>
+        <a class ="go-signup" href="{{ signup_url }}">회원가입</a>
+    </p>
+    
+    <a href="{% provider_login_url 'google' %}" class="btn btn-block btn-social btn-lg btn-google" onclick="_gaq.push(['_trackEvent', 'btn-social', 'click', 'btn-lg']);"><i class="fa fa-google"></i>Sign in with Google</a>
+    <br>
     </div>
-
-    {% endif %}
-
-    <form class="login" method="POST" action="{% url 'account_login' %}">
-      {% csrf_token %}
-      {{ form.as_table }}
-      {% if redirect_field_value %}
-      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-      {% endif %}
-      <button class="primaryAction" type="submit">로그인</button>
-  </form>
+  </div>
   </body>
 </html>
