@@ -1,0 +1,13 @@
+<h1>소셜계정 회원가입</h1>
+
+<form class="signup" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <button type="submit">회원가입 &raquo;</button>
+</form>
+
+{% load socialaccount %}
+{{ account.get_provider.name }}의 계정을 이용하여 로그인합니다. 마지막으로 서비스에서 이용할 이름을 작성해주세요.

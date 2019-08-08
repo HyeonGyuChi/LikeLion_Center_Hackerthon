@@ -42,18 +42,11 @@ def resume_result(request, pk, order_by='download_num', order=0):
         if order == 0:   # 내림차순
             reverse = True
         sorted_resume_merged_list = sorted(resume_merged_list, key=key, reverse=reverse)
-        return render(request, 'resume_result.html', 
-            {'resume_info':resume_info, 
+        return render(request, 'resume_result.html', {
+            'resume_info':resume_info, 
             'resume_merged_list':sorted_resume_merged_list, 
             'order_by':order_by, 
             'order':order})
-    else:
-        return render(request, 'reject.html')
-
-def resume_detail(request, pk):
-    resume_merged = get_object_or_404(ResumeMerged, pk=pk)
-    if resume_merged.user == request.user:
-        return render(request, 'resume_detail.html', {'resume_merged': resume_merged})
     else:
         return render(request, 'reject.html')
 

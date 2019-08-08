@@ -1,0 +1,52 @@
+{% load i18n %}
+{% load account socialaccount %}
+{% providers_media_js %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>이옷 | Login</title>
+</head>
+<body>
+<link rel='stylesheet' type='text/css' href="{% static 'users/css/login.css' %}?ver=2">
+<div class="container" id="login-box-container">
+
+    <center><a href="{% url 'index' %}"><img src="{% static 'users/images/main-logo.png'%}" width="120" height="100"  alt="" ></a></center>
+    <br><br>  
+    <div class ="login-box">
+    <center>
+        <form method="POST" action="{% url 'users:account_login' %}">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>
+                        <input class="input-login" name="login" type="email" placeholder="Email address" >
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="input-login" name="password" type="password" placeholder="Password">
+                    </td>
+                </tr>
+            <br><br>
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            </table>
+            <br>
+            <input type="submit" class="btn btn-light" value="LOGIN">
+        </form>
+    </center>
+    <br>
+    <hr class="line">
+    <p class ="go-signup">
+        <div class ="go-signup"><a class ="go-signup" href="{% provider_login_url 'google' %}">구글 로그인</a></div>
+        <div class ="go-signup"><a class ="go-signup" href="{% url 'users:account_signup' %}">Don't have an account?</a></div>
+    </p>
+    <br>
+    </div>
+</div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); .notosanskr * { font-family: 'Noto Sans KR', sans-serif; }
-
+/* 
 .container{
     position: absolute;
     left: 50%;
@@ -7,6 +7,14 @@
     width: 400px;
     margin: 50px 0px 0px -200px;
 
+} */
+
+#login-box-container{
+    position: absolute;
+    left: 50%;
+    height:400px;
+    width: 400px;
+    margin: 150px 0px 0px -200px;
 }
 
 html, body{
@@ -33,7 +41,6 @@ html, body{
 .login-box{
     /* background-color:  #53BFAC; */
     background-color: #FBF9F4;
-
     height: 300px;
     width: 350px;
     border-radius: 10px;

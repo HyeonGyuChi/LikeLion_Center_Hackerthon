@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block contents %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>이옷 | Sign up</title>
+</head>
+<body>
+<link rel='stylesheet' type='text/css' href="{% static 'users/css/signup.css' %}?ver=1">
+    <br><br><br><br><br><br><br>
+    <div class="container">
+        <form method="POST" action="{% url 'users:account_signup' %}">
+            {% csrf_token %}
+            <div class ="signup-box">
+                <h3>Sign in</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <input class="input-signup" name="email" type="email" maxlength="255" placeholder="Email address" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input class="input-signup" name="username" type="text" placeholder="Name" maxlength="255">
+                        </td>
+                    </tr>
+                    {% comment %} <tr>
+                        <td>
+                            <ul class="errorlist">
+                                <li>비밀번호가 full name와 너무 유사합니다.</li>
+                                <li>비밀번호가 너무 짧습니다. 최소 8문자를 포함해야 합니다.</li>
+                            </ul>
+                        </td>
+                    </tr> {% endcomment %}
+                    <tr>
+                        <td>
+                            <input class="input-signup" name="password1" type="password" placeholder="Password" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input class="input-signup" name="password2" type="password" placeholder="Retype password">
+                        </td>
+                    </tr>
+                    {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+                </table>
+                <br>
+            <input type="submit" class="btn btn-light" value="Sign up">
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}
