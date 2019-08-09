@@ -134,6 +134,7 @@
                             <button class="btn btn-primary" onclick="location.href='{% url 'docxmerge:download' resume_merged.pk 'docx' %}'" data-dismiss="modal">
                                 DOCX 다운로드
                             </button>
+                            <button type="button" class="btn btn-light" onclick="location.href='{% url 'users:coin_sub' resume_merged.resume.coin %}'">구매</button>
                             <button class="btn btn-primary" onclick="location.href='{% url 'docxmerge:download' resume_merged.pk 'pdf' %}'" data-dismiss="modal">
                                 PDF 다운로드
                             </button>
