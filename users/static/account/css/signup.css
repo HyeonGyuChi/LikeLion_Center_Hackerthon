@@ -8,6 +8,10 @@ html{
     /* background: linear-gradient(90deg, #53BFAC 50%, white 50%); */
 }
 
+body{
+    margin-top: 80px;
+}
+
 .signup-box{
     /* background-color:  #53BFAC; */
     height: 600px;
@@ -22,9 +26,18 @@ html{
 
 .input-signup{
     height: 50px;
-    width: 300px;  
+    width: 440px;  
     font-family: 'Noto Sans KR';
+
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 2px solid black;
+    border-radius: 5px;
+    margin-bottom: 13px;
+    padding-left: 15px;
 }
+
 
 .btn-light{
     /* background-color: #FBF9F4; */
@@ -46,11 +59,27 @@ html{
 }
 
 #signup-page{
+    margin-bottom: 100px;
+    text-align: center;
+    display: block;
+    padding-bottom: 20px;
+    width: 0px;
+    border-bottom: 2px solid #53BFAC;
     font-family: 'Noto Sans KR';
     font-size: 40px;
     color: black;
     text-decoration: none;
-    margin-left: 15%;
+    /* margin-left: 15%; */
+}
+
+.signupTitleClass {
+    /* margin-bottom: 80px !important; */
+    /* padding-bottom: 15px !important; */
+    /* padding-left: 100px !important; */
+    width: 100% !important;
+    border-bottom: 2px solid #53BFAC;   
+    transition: all 1s;
+    font-size: 40px !important;
 }
 
 .line{
