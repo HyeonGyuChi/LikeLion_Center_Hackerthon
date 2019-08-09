@@ -13,7 +13,6 @@ from .resume_module import merge
 from users.models import User
 from users.views import coin_add
 from users.views import coin_sub
-@login_required
 def resume_make(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
