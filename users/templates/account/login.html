@@ -25,9 +25,11 @@
     {% comment %} <a href="{% url 'index' %}"><img src="{% static 'account/images/main-logo.png'%}" width="120" height="100"  alt="" ></a></center> {% endcomment %}
 <center>
     <div class ="login-box">
+      <br><br>
         <form method="POST" action="{% url 'account_login' %}">
             {% csrf_token %}
-                <table>
+            {{ form.as_p }}
+                <!-- <table>
                     <tr>
                         <td>
                             <input class="input-login" name="login" type="email" placeholder="Email address" >
@@ -39,10 +41,11 @@
                         </td>
                     </tr>
                 <br><br>
+                
+                </table> -->
                 {% if redirect_field_value %}
                 <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
-                </table>
                 <br>
                 <button  class="btn btn-light"  type="submit">로그인</button>
             </form>

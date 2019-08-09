@@ -169,9 +169,19 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email' # email기반 account
 ACCOUNT_EMAIL_REQUIRED = True # must fill in email
 ACCOUNT_EMAIL_VERIFICATION = 'none' # 이메일 인증 x
 
-ACCOUNT_USERNAME_REQUIRED = False # must fill in username // #@gmail.com => ^로 username 설정오류
-SOCIALACCOUNT_AUTO_SIGNUP = False # social로그인에서 바로 users로 회원가입 방지
+ACCOUNT_USERNAME_REQUIRED = True # must fill in username // #@gmail.com => ^로 username 설정오류
+SOCIALACCOUNT_AUTO_SIGNUP = True # social로그인에서 바로 users로 회원가입 방지
 
 ACCOUNT_LOGOUT_ON_GET = True # logout시 바로 로그아웃
+
+ACCOUNT_FORMS = {
+    'login': 'users.forms.MyCustomLoginForm', # accounts/login.html
+    'signup': 'users.forms.MyCustomSignupForm', # accounts/signup.html
+}
+
+SOCIALACCOUNT_FORMS = {
+    'signup': 'users.forms.MyCustomSocialSignupForm', # socialaccount/signup.html
+}
+
 
 # ACCOUNT_USER_MODEL_USERNAME_FIELD = None
