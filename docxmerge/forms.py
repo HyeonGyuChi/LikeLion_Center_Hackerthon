@@ -23,7 +23,7 @@ class ResumeInfoForm(forms.ModelForm):
         })
         self.fields['writer_phone'].widget.attrs.update({
             'class': 'writerPhoneNumSection',
-            'placeholder': '작성자 전화번호',
+            'placeholder': '전화번호 010-0000-0000',
         })
         self.fields['writer_email'].widget.attrs.update({
             'class': 'writerEmailSection',
