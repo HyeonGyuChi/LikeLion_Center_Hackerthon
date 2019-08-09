@@ -170,7 +170,7 @@ ACCOUNT_EMAIL_REQUIRED = True # must fill in email
 ACCOUNT_EMAIL_VERIFICATION = 'none' # 이메일 인증 x
 
 ACCOUNT_USERNAME_REQUIRED = True # must fill in username // #@gmail.com => ^로 username 설정오류
-SOCIALACCOUNT_AUTO_SIGNUP = False # social로그인에서 바로 users로 회원가입 방지
+SOCIALACCOUNT_AUTO_SIGNUP = True # social로그인에서 바로 users로 회원가입 방지
 
 ACCOUNT_LOGOUT_ON_GET = True # logout시 바로 로그아웃
 
