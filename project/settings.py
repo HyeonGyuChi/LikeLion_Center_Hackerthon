@@ -174,4 +174,14 @@ SOCIALACCOUNT_AUTO_SIGNUP = False # social로그인에서 바로 users로 회원
 
 ACCOUNT_LOGOUT_ON_GET = True # logout시 바로 로그아웃
 
+ACCOUNT_FORMS = {
+    'login': 'users.forms.MyCustomLoginForm', # accounts/login.html
+    'signup': 'users.forms.MyCustomSignupForm', # accounts/signup.html
+}
+
+SOCIALACCOUNT_FORMS = {
+    'signup': 'users.forms.MyCustomSocialSignupForm', # socialaccount/signup.html
+}
+
+
 # ACCOUNT_USER_MODEL_USERNAME_FIELD = None

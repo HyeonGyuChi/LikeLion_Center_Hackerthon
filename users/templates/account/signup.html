@@ -14,58 +14,7 @@
 </head>
 <body>
   
-    <link rel='stylesheet' type='text/css'  href="{% static 'account/css/signup.css' %}?ver=1">
-
-    <a id="signup-page" href="{{ account_signup }}"><strong>회원가입</strong><a>
-    <center>
-      <div class ="signup-box">
-        <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-          {% csrf_token %}
-          {% comment %} {{ form.as_p }} {% endcomment %}
-      <table>
-          <tr>
-            {% comment %} <th class="feature-signup">이메일 
-            </th> {% endcomment %}
-              <td>
-                <input class="input-signup" type ="email" name="email" placeholder=" 이메일" required id="id_email">
-              </td>
-          </tr>
-          
-          <tr>
-            {% comment %} <th class="feature-signup">이름 
-            </th> {% endcomment %}
-              <td>
-                <input class="input-signup"  type ="text" name="username" placeholder=" 이름" autofocus="autofocus" minlength="1" maxlength="255" required id="id_username">
-              </td>
-          </tr>
-          <tr>
-            {% comment %} <th class="feature-signup">비밀번호 
-            </th> {% endcomment %}
-              <td>     
-          <input class="input-signup"  type ="password" name="password1" placeholder=" 비밀번호" required id="id_password1">
-              </td>
-          </tr>
-          <tr>
-            {% comment %} <th class="feature-signup">비밀번호  (확인) 
-            </th> {% endcomment %}
-              <td>
-          <input class="input-signup"  type ="password" name="password2" placeholder=" 비밀번호(확인)" required id="id_password2">
-              </td>
-          </tr>
-      </table>      
-          {% if redirect_field_value %}
-          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-          {% endif %}
-          <br>
-          <button class="btn btn-light" type="submit">확인</button>
-
-        </form>
-
-    <br>
-    <hr class="line">
-        <h6>이미 계정이 있으십니까? <a id="login-go" href="{{ login_url }}">로그인</a></h6>
-      </div>
-      </center>
+<h1>안녕</h1>
 <body>
 </html>
 
