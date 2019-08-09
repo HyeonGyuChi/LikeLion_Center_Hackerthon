@@ -1,67 +1,102 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); .notosanskr * { font-family: 'Noto Sans KR', sans-serif; }
-/* 
-.container{
-    position: absolute;
-    left: 50%;
-    height:400px;
-    width: 400px;
-    margin: 50px 0px 0px -200px;
 
-} */
 
-#login-box-container{
-    position: absolute;
-    left: 50%;
-    height:400px;
-    width: 400px;
-    margin: 150px 0px 0px -200px;
-}
-
-html, body{
+html{
     height: 100%;
-    background-image: url('../images/login-background.jpg');
-    /* background-color: #53BFAC; */
-    /* background-color: white; */
+    margin: 0;
 }
 
-.btn-light{
-    height: 50px;
-    width:250px;
-    background-color: #53BFAC;
-    border: none;
-}
-
-.input-login{
-    height: 30px;
-    width:240px;  
-    font-family: 'Noto Sans KR';
-
+body{
+    margin-top: 80px;
 }
 
 .login-box{
     /* background-color:  #53BFAC; */
-    background-color: #FBF9F4;
-    height: 300px;
-    width: 350px;
+    height: 600px;
+    width: 500px;
+    border: none;
     border-radius: 10px;
     padding: 20px; 
     font-family: 'Noto Sans KR';
-
+    position: relative;
+    /* left: 30%; */
 }
 
-.go-signup{
-    /* margin-left: 160px; */
-    text-align: right;
-    text-decoration:none;
-    color:black;
+.input-login{
+    height: 50px;
+    width: 440px;  
     font-family: 'Noto Sans KR';
+
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 2px solid black;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding-left: 15px;
 }
 
-.go-signup:hover {
-    color:#53BFAC;
+.btn-light{
+    /* background-color: #FBF9F4; */
+    background-color:#53BFAC;
+    color: white;
+    height: 62px;
+    width: 100%;
+    font-family: 'Noto Sans KR';    
+    border:none;    
+    /* margin-left: 70%; */
+}
+
+.btn-light:hover{
+    /* background-color:#53BFAC;
+    color: white; */
+    background-color: #53BFAC;
+    color: black;
+
+}
+
+#login-page{
+    margin-bottom: 50px;
+    text-align: center;
+    display: block;
+    padding-bottom: 20px;
+    width: 0px;
+    border-bottom: 2px solid #53BFAC;
+    font-family: 'Noto Sans KR';
+    font-size: 40px;
+    color: black;
+    text-decoration: none;
+    /* margin-left: 15%; */
+}
+
+.loginTitleClass {
+    /* margin-bottom: 80px !important; */
+    /* padding-bottom: 15px !important; */
+    /* padding-left: 100px !important; */
+    width: 100% !important;
+    border-bottom: 2px solid #53BFAC;   
+    transition: all 1s;
+    font-size: 40px !important;
 }
 
 .line{
     border:thin solid;
     color:#53BFAC;
+}
+
+.feature-login{
+    padding-right: 50px;
+    
+}
+
+h1{
+    margin-left: 15%;
+}
+
+th,td{
+    padding: 10px;
+}
+
+.go-signup{
+    color: #2c3e50;
 }

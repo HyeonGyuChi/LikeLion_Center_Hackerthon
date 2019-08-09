@@ -8,6 +8,10 @@ html{
     /* background: linear-gradient(90deg, #53BFAC 50%, white 50%); */
 }
 
+body{
+    margin-top: 80px;
+}
+
 .line{
     border:thin solid;
     color:#53BFAC;
@@ -16,12 +20,27 @@ html{
 
 
 #social-signup-page{
+    margin-bottom: 100px;
+    text-align: center;
+    display: block;
+    padding-bottom: 20px;
+    width: 0px;
+    border-bottom: 2px solid #53BFAC;
     font-family: 'Noto Sans KR';
     font-size: 40px;
     color: black;
     text-decoration: none;
-    margin-left: 15%;
-    padding-bottom: 30%;
+    /* margin-left: 15%; */
+}
+
+.signupTitleClass {
+    /* margin-bottom: 80px !important; */
+    /* padding-bottom: 15px !important; */
+    /* padding-left: 100px !important; */
+    width: 100% !important;
+    border-bottom: 2px solid #53BFAC;   
+    transition: all 1s;
+    font-size: 40px !important;
 }
 
 

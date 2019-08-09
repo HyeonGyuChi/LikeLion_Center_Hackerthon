@@ -7,54 +7,58 @@
 <head>
     <meta charset="UTF-8">
     <title>이옷 | Sign up</title>
+    <script>
+        $(document).ready(function(){
+            $('#social-signup-page').addClass('signupTitleClass');
+        })
+    </script>  
+
 </head>
 <body>
-<link rel='stylesheet' type='text/css'  href="{% static 'socialaccount/css/signup.css' %}?ver=1">
-<br><br>
-<a id="social-signup-page" href="#"><strong>소셜계정 회원가입</strong><a>
-<br>
-<hr class="line">
-<br><br><br><br>
+<link rel='stylesheet' type='text/css'  href="{% static 'socialaccount/css/socialsignup.css' %}?ver=2">
+    <a id="social-signup-page" href="#"><strong>소셜계정 회원가입</strong><a>
+        <center>
+          <div class ="signup-box">
+            <form class="signup" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
+            {% csrf_token %}
 
-<center>
-  <div class ="signup-box">
-    <form class="signup" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
-    {% csrf_token %}
+            {% comment %} <p class="notice"><strong>{{ account.get_provider.name }}</strong>의 계정을 이용하여 로그인합니다. <br>
+                이옷에서 이용할 <strong>이메일</strong>과 <strong>이름</strong>을 작성해주세요.  
+            </p> {% endcomment %}
+            <img src="https://cdn.freebiesupply.com/logos/large/2x/google-icon-logo-png-transparent.png" alt="google" width="50" height="30"/>
 
-    <p class="notice"><strong>{{ account.get_provider.name }}</strong>의 계정을 이용하여 로그인합니다. <br>
-        이옷에서 이용할 <strong>이메일</strong>과 <strong>이름</strong>을 작성해주세요.  
-    </p>
-    <hr class="line">
-    <br>
-      
-      <input type="hidden" name="csrfmiddlewaretoken" value="TMAbVWT8Djm8J8kQHIwL7jnAVRjOS8fVfmK1nygHGBE0J2sQ77aUs7Lqh3oupyO1">
-      <table>
-        <tr>
-          <th class="feature-signup">이메일 
-          </th>
-          <td>
-            <input class="input-signup" type="email" name="email" value="" placeholder="이메일 주소" required="" id="id_email"></label>
-          </td>
-      </tr>
-      
-      <tr>
-        <th class="feature-signup">이름
-        </th>
-          <td>
-            <input class="input-signup"  type="text" name="username" placeholder="아이디" autofocus="autofocus" minlength="1" maxlength="255" required="" id="id_username">
-          </td>
-      </tr>
-      </table>
-      {% if redirect_field_value %}
-      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-      {% endif %}
-      <br>
+            <hr class="line">
+            <br>
+              
+              <input type="hidden" name="csrfmiddlewaretoken" value="TMAbVWT8Djm8J8kQHIwL7jnAVRjOS8fVfmK1nygHGBE0J2sQ77aUs7Lqh3oupyO1">
+              <table>
+                <tr>
+                  <th class="feature-signup">이메일 
+                  </th>
+                  <td>
+                    <input class="input-signup" type="email" name="email" value="" placeholder="이메일 주소" required="" id="id_email"></label>
+                  </td>
+              </tr>
+              
+              <tr>
+                <th class="feature-signup">이름
+                </th>
+                  <td>
+                    <input class="input-signup"  type="text" name="username" placeholder="아이디" autofocus="autofocus" minlength="1" maxlength="255" required="" id="id_username">
+                  </td>
+              </tr>
+              </table>
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+              <br>
 
-      <button  class="btn btn-light"  type="submit">확인</button>
-  </div>
-</form>
+              <button  class="btn btn-light"  type="submit">확인</button>
+          </div>
+        </form>
 
-</center>
+        </center>
+
 </body>
 </html>
 
