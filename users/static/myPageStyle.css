@@ -1,0 +1,25 @@
+.outDiv {
+    display: flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    height: 100%;
+}
+
+.flex-item {
+    padding: 30px 30px 30px 30px;
+    border: 1px solid black;
+    border-radius: 4px;
+    width: 300px !important;
+    margin-left: 50px;
+    margin-bottom: 70px;
+}
+
+.writeBtn {
+    display: block;
+    text-align: center;
+}
