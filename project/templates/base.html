@@ -27,9 +27,9 @@
         <body>
         
         
-        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-            <div class="container" style="width: 120%;">
-                <a class="navbar-brand js-scroll-trigger" href="{% url 'index' %}"><img src="{% static 'lee.png' %}" alt="이옷" width='80px' height='50px'></a>
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav" style="background-color: rgba(44,62,80,0.8) !important; height: 80px;">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="{% url 'index' %}"><img src="{% static 'lee.png' %}" alt="이옷" width='73px' height='52px'></a>
                 <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
@@ -37,23 +37,23 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     {% if user.is_authenticated %}
-                    <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'users:mypage' %}">My page</a>
-                    </li>
-                    <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'account_logout' %}">Log out</a>
-                    </li>
-                    <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'admin_page' %}">Admin page</a>
-                    </li>
+                        <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'users:mypage' %}">My page</a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'account_logout' %}">Log out</a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'admin_page' %}">Admin page</a>
+                        </li>
                     {% else %}
-                    <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'account_signup' %}">Sign up</a>
-                    </li>
-                    <li class="nav-item mx-0 mx-lg-1">
-                    
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'account_login' %}">Log in</a>
-                    </li>
+                        <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'account_signup' %}">Sign up</a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1">
+                        
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'account_login' %}">Log in</a>
+                        </li>
                     {% endif %}
                 </ul>
                 </div>

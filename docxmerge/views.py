@@ -12,24 +12,27 @@ from .forms import ResumeInfoForm, UploadFileForm
 from .resume_module import merge
 from users.models import User
 
-@login_required
+# @login_required
 def resume_make(request):
-    if request.method == 'POST':
-        # post_text = request.POST.get('form-table')
-        form = ResumeInfoForm(request.POST)
-        if form.is_valid():
-            resume_info = form.save(commit=False)
-            resume_info.user = request.user
-            resume_info.save()
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            # post_text = request.POST.get('form-table')
+            form = ResumeInfoForm(request.POST)
+            if form.is_valid():
+                resume_info = form.save(commit=False)
+                resume_info.user = request.user
+                resume_info.save()
+            else:
+                print(form.errors)
+            user = User.objects.get(username=request.user.get_full_name())
+            resume_merged_list = merge(form, resume_info)
+            # return render(request, 'resume_result.html', {'resume_merged_list':resume_merged_list})
+            return redirect('docxmerge:result', resume_info.pk)
         else:
-            print(form.errors)
-        user = User.objects.get(username=request.user.get_full_name())
-        resume_merged_list = merge(form, resume_info)
-        # return render(request, 'resume_result.html', {'resume_merged_list':resume_merged_list})
-        return redirect('docxmerge:result', resume_info.pk)
+            form = ResumeInfoForm()
+        return render(request, 'resume_make.html', {'form':form})
     else:
-        form = ResumeInfoForm()
-    return render(request, 'resume_make.html', {'form':form})
+        return redirect('account_login')
 
 def resume_result(request, pk, order_by='download_num', order=0):
     resume_info = ResumeInfo.objects.get(pk=pk)
