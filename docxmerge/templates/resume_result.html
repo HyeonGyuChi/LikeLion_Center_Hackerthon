@@ -77,7 +77,7 @@
     
             <!-- Portfolio Section Heading -->
             <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">이력서 옷입히기</h2>
-    
+            
             <!-- Icon Divider -->
             <div class="divider-custom">
                 <div class="divider-custom-line"></div>
@@ -86,9 +86,35 @@
                 </div>
                 <div class="divider-custom-line"></div>
             </div>
-    
+                <div>
+    <span>결과:</span>
+    <select id="sort-select" onchange="location = this.value;">
+        {% if order_by == 'download_num' %}
+            <option value="{% url 'docxmerge:result' resume_info.pk 'download_num' order %}" selected>다운로드순</option>
+            <option value="{% url 'docxmerge:result' resume_info.pk 'like_num' order %}">좋아요순</option>
+        {% else %}
+            <option value="{% url 'docxmerge:result' resume_info.pk 'download_num' order %}">다운로드순</option>
+            <option value="{% url 'docxmerge:result' resume_info.pk 'like_num' order %}" selected>좋아요순</option>
+        {% endif %}
+    </select>
+    {% if order == 0 %}
+        {% if order_by == 'download_num' %}
+            <button onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'download_num' 1 %}'">정렬순서</button>
+        {% else %}
+            <button onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'like_num' 1 %}'">정렬순서</button>
+        {% endif %}
+    {% else %}
+        {% if order_by == 'download_num' %}
+            <button onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'download_num' 0 %}'">정렬순서</button>
+        {% else %}
+            <button onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'like_num' 0 %}'">정렬순서</button>
+        {% endif %}
+    {% endif %}
+    </div>
             <!-- Portfolio Grid Items -->
-            <div class="row">
+    <br>
+    <br>        
+    <div class="row">
 
 {% for resume_merged in resume_merged_list %}
 
@@ -131,6 +157,7 @@
                             <img class="img-fluid rounded mb-5" src="{{resume_merged.img_file.url}}" alt="이력서 상세보기">
 
                             <!-- Portfolio Modal - Text -->
+                            
                             <button class="btn btn-primary" onclick="location.href='{% url 'docxmerge:download' resume_merged.pk 'docx' %}'" data-dismiss="modal">
                                 DOCX로 구매
                             </button>
@@ -157,6 +184,7 @@
         </div>
     </section>
 
+<<<<<<< HEAD
     <div class="input-group mb-3" id="sort-select">
         <select class="custom-select" id="inputGroupSelect01" onchange="location = this.value;">
             {% if order_by == 'download_num' %}
@@ -183,6 +211,8 @@
         {% endif %}
         </div>
     </div>
+=======
+>>>>>>> dohyun
 </header>
 
 </body>

@@ -1,60 +1,152 @@
-{% extends 'base.html' %}
-{% block contents %}
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Index</title>
-</head>
-<body>
-<div class="container">
-    <h1>hi</h1>
-    <a href="{% url 'docxmerge:make' %}">이력서 만들기 폼</a>
+    {% extends 'base.html' %}
+    {% block contents %}
+    {% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <title>Index</title>
+        </head>
+    <body>
+
     <br>
-    <a href="{% url 'docxmerge:upload' %}">이력서 템플릿 업로드</a>
-</div>
-</body>
-</html>
-
-<div class="social_test" style="border:4px dashed blue" >
-<br>
-<h1>----social_test---- 이 div는 지울꺼에요</h1>
-{% load socialaccount %}
-{% providers_media_js %}
- 
-    <h1>소셜로그인</h1>
-    {% if user.is_authenticated %}
-    <span>{{ user }}님이 로그인중입니다.</span>
- 
-    {% for account in user.socialaccount_set.all %}
- 
-     {% comment %} show avatar from url {% endcomment %}
-     <h2 style="text-transform:capitalize;">{{ account.provider }} account data</h2>
- 
-     <p><img width="50" height="50" src="{{ account.get_avatar_url }}"/></p>
- 
-     <p>UID: <a href="{{ account.extra_data.link }}">{{ account.uid }}</a></p>
- 
-     <p>Username: {{ account.extra_data.name }}</p>
-      <p>First Name: {{ account.extra_data.first_name }}</p>
-      <p>Last Name: {{ account.extra_data.last_name }}</p>
- 
-      <p>Dashboard Link:
-      <a href="{{ account.extra_data.link }}">{{ account.extra_data.link }}</a></p>
-      {% empty %}
-      <p>you haven't any social account please</p>
-    {% endfor %}
- 
- 
-    {% endif %}
-    <h2><a href="{% url 'account_login' %}">로그인</a></h2>
-    <h2><a href="{% provider_login_url 'google' %}">구글 로그인</a></h2>
-    <h2><a href="{% url 'account_logout' %}">로그아웃</a></h2>
-    <h2><a href="{% url 'account_signup' %}">회원가입</a></h2>
-<h1>----social_test----</h1>
-<br>
-</div>
+    <br>
+    <br>         
+    <section id="contact">
+    <div class="container">
+    <h1 class="text-center text-uppercase text-secondary mb-0">본질에 집중한</h1>
+    <br>
+    <div class="row">
+    <div class="col-lg-8 mx-auto">
+    <p>보다 명확한 정보 설계로 당신의 커리어를 돋보이게 만들어 드립니다. <br>
+    불필요한 정보 입력을 최소화하고 이력서 작성에 방해가 되는 UI 요소들을 제거하였습니다.</p>
 
 
-{% endblock %}
+    <form name="sentMessage" id="contactForm" novalidate="novalidate">  
+        <br>
+        <div id="success"></div>
+        <div class="form-group">
+        <img src="{% static 'pro.JPG' %}" alt="이옷">
+        <center><button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">이력서 샘플 다운로드</button></center>
+        </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    </section>
+
+
+    <header class="masthead bg-primary text-white text-center">
+        <div class="container d-flex align-items-center flex-column">
+            <h1 class="masthead-heading text-uppercase mb-0">이력서 양식, 그 이상</h1><br>
+            <h4> 채용 전문가들의 조언을 얻어, 이력서를 잘 쓸 수 있는 도구를 만들었습니다. 
+            <br>서류 통과가 잘 되는 이옷서비스를 통해 이력서를 쉽고 빠르게 작성해 보세요.</h4>
+
+                
+                <div class="divider-custom divider-light">
+                    <div class="divider-custom-line"></div>
+                    <!--<div class="divider-custom-icon">
+                    <i class="fas fa-star"></i>
+                    </div>-->
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-line"></div>
+                    
+                    
+                </div>
+                
+                    <div class="text-center mt-4">
+            <a class="btn btn-xl btn-outline-light" href="{% url 'docxmerge:make' %}">
+            <i class="fas fa-download mr-2"></i>
+            이력서 만들기 폼
+            </a>
+            
+            <a class="btn btn-xl btn-outline-light" href="{% url 'docxmerge:upload' %}">
+            <i class="fas fa-download mr-2"></i>
+            이력서 템플릿 업로드
+            </a>
+        </div>
+        </div> 
+                <!--<p class="masthead-subheading font-weight-light mb-0"> 이력서 옷입히기 </p>
+    -->
+                </div>
+            </header> 
+            
+    <section id="contact">
+    <div class="container">
+    <br>
+
+    <h1 class="text-center text-uppercase text-secondary mb-0"> 활용이 자유로운</h1>
+    <br>
+    <div class="row">
+    <div class="col-lg-8 mx-auto">
+    <p>PC/모바일 어디에서나 작성할 수 있고, PDF 파일로 저장과 활용이 쉽습니다.<br> 
+가독성에 중점을 두고 설계하여, 파일 저장/출력시에도 돋보이는 결과물을 얻을 수 있습니다.</p>
+
+
+    <form name="sentMessage" id="contactForm" novalidate="novalidate">  
+        <br>
+        <div id="success"></div>
+        <div class="form-group">
+        <img src="{% static 'resum.JPG' %}" alt="이옷">
+        
+        </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    </section>
+            <!--    
+            <div class="container">
+                <br>
+                <br>
+                <br>
+
+                <h1>hi</h1>
+                <a href="{% url 'docxmerge:make' %}">이력서 만들기 폼</a>
+                <br>
+                <a href="{% url 'docxmerge:upload' %}">이력서 템플릿 업로드</a>
+            </div>-->
+            </body>
+            </html>
+
+            <div class="social_test" style="border:4px dashed blue" >
+            <br>
+            <h1>----social_test---- 이 div는 지울꺼에요</h1>
+            {% load socialaccount %}
+            {% providers_media_js %}
+            
+                <h1>소셜로그인</h1>
+                {% if user.is_authenticated %}
+                <span>{{ user }}님이 로그인중입니다.</span>
+            
+                {% for account in user.socialaccount_set.all %}
+            
+                {% comment %} show avatar from url {% endcomment %}
+                <h2 style="text-transform:capitalize;">{{ account.provider }} account data</h2>
+            
+                <p><img width="50" height="50" src="{{ account.get_avatar_url }}"/></p>
+            
+                <p>UID: <a href="{{ account.extra_data.link }}">{{ account.uid }}</a></p>
+            
+                <p>Username: {{ account.extra_data.name }}</p>
+                <p>First Name: {{ account.extra_data.first_name }}</p>
+                <p>Last Name: {{ account.extra_data.last_name }}</p>
+            
+                <p>Dashboard Link:
+                <a href="{{ account.extra_data.link }}">{{ account.extra_data.link }}</a></p>
+                {% empty %}
+                <p>you haven't any social account please</p>
+                {% endfor %}
+            
+            
+                {% endif %}
+                <h2><a href="{% url 'account_login' %}">로그인</a></h2>
+                <h2><a href="{% provider_login_url 'google' %}">구글 로그인</a></h2>
+                <h2><a href="{% url 'account_logout' %}">로그아웃</a></h2>
+                <h2><a href="{% url 'account_signup' %}">회원가입</a></h2>
+            <h1>----social_test----</h1>
+            <br>
+            </div>
+
+
+            {% endblock %}
