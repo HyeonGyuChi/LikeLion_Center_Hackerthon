@@ -132,11 +132,10 @@
 
                             <!-- Portfolio Modal - Text -->
                             <button class="btn btn-primary" onclick="location.href='{% url 'docxmerge:download' resume_merged.pk 'docx' %}'" data-dismiss="modal">
-                                DOCX 다운로드
+                                DOCX로 구매
                             </button>
-                            <button type="button" class="btn btn-light" onclick="location.href='{% url 'users:coin_sub' resume_merged.resume.coin %}'">구매</button>
                             <button class="btn btn-primary" onclick="location.href='{% url 'docxmerge:download' resume_merged.pk 'pdf' %}'" data-dismiss="modal">
-                                PDF 다운로드
+                                PDF로 구매
                             </button>
                             <button type="button" class="like btn btn-primary" name="{{resume_merged.resume.pk}}">Like</button>
                             <span id="count-{{resume_merged.resume.pk}}" class="badge badge-secondary">좋아요 {{ resume_merged.resume.like_count }}개</span>

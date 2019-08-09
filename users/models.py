@@ -18,3 +18,5 @@ class User(AbstractEmailUser):
         if not self.usercoin - amount < 0:
             self.usercoin -= amount
             self.save()
+            return True
+        return False
