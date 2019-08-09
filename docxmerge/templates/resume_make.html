@@ -6,7 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Form</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'docxmerge/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'docxmerge/resume_make.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'docxmerge/styles.css' %}">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
         var frm = $('#submit-form');
@@ -28,10 +29,16 @@
             });
         });
     </script>
+        
+    <script>
+        $(document).ready(function(){
+            $('#resumeTitle').addClass('resumeTitleClass');
+        })
+    </script>
 </head>
 <body>
-<div class="container form-container">
-    <h2>정보 입력</h2>
+<div class="resumeDiv">
+    <h2 id="resumeTitle">정보입력</h2>
     <!-- <form method="POST" action="{% url 'docxmerge:make' %}">
         {% csrf_token %}
         이름:
@@ -48,6 +55,7 @@
         <br><br>
         <input type="submit" class="btn btn-light" value="make resume">
     </form> -->
+    <!-- form안에 있는 class 이름들은 forms.py에 코드로 들어가 있습니다!! -->
     <form id="submit-form" method="POST" action="{% url 'docxmerge:make' %}">
         {% csrf_token %}
         <table id="form-table">
