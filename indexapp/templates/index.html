@@ -109,7 +109,7 @@
             </body>
             </html>
 
-            <div class="social_test" style="border:4px dashed blue" >
+            {% comment %}<div class="social_test" style="border:4px dashed blue" >
             <br>
             <h1>----social_test---- 이 div는 지울꺼에요</h1>
             {% load socialaccount %}
@@ -121,7 +121,7 @@
             
                 {% for account in user.socialaccount_set.all %}
             
-                {% comment %} show avatar from url {% endcomment %}
+                show avatar from url 
                 <h2 style="text-transform:capitalize;">{{ account.provider }} account data</h2>
             
                 <p><img width="50" height="50" src="{{ account.get_avatar_url }}"/></p>
@@ -146,7 +146,7 @@
                 <h2><a href="{% url 'account_signup' %}">회원가입</a></h2>
             <h1>----social_test----</h1>
             <br>
-            </div>
+            </div>{% endcomment %}
 
 
             {% endblock %}
