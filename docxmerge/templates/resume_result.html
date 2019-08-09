@@ -71,22 +71,51 @@
 <body>
 
 <!-- Portfolio Section -->
-<header class="masthead bg-primary text-white text-center">
+{% comment %} <header class="masthead bg-primary text-white text-center"> {% endcomment %}
     <section class="page-section portfolio" id="portfolio">
         <div class="container">
-    
+<br><br>
+<center>
             <!-- Portfolio Section Heading -->
-            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">이력서 옷입히기</h2>
+            <img class="page-section-heading text-center text-uppercase text-secondary mb-0"><span class="resultTitle">[ 옷입은 이력서 ] </h2>
     
-            <!-- Icon Divider -->
+        <p class="resultNotice"> 마음에 드는 이력서를 선택해 보세요 </p>
+        <div class="input-group mb-3" id="sort-select">
+        <select class="custom-select" id="inputGroupSelect01" onchange="location = this.value;">
+            {% if order_by == 'download_num' %}
+                <option value="{% url 'docxmerge:result' resume_info.pk 'download_num' order %}" selected>다운로드순</option>
+                <option value="{% url 'docxmerge:result' resume_info.pk 'like_num' order %}">좋아요순</option>
+            {% else %}
+                <option value="{% url 'docxmerge:result' resume_info.pk 'download_num' order %}">다운로드순</option>
+                <option value="{% url 'docxmerge:result' resume_info.pk 'like_num' order %}" selected>좋아요순</option>
+            {% endif %}
+        </select>
+        <div class="input-group-append">
+        {% if order == 0 %}
+            {% if order_by == 'download_num' %}
+                <button class="btn btn-outline-secondary input-group-text" onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'download_num' 1 %}'">정렬순서</button>
+            {% else %}
+                <button class="btn btn-outline-secondary input-group-text" onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'like_num' 1 %}'">정렬순서</button>
+            {% endif %}
+        {% else %}
+            {% if order_by == 'download_num' %}
+                <button class="btn btn-outline-secondary input-group-text" onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'download_num' 0 %}'">정렬순서</button>
+            {% else %}
+                <button class="btn btn-outline-secondary input-group-text" onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'like_num' 0 %}'">정렬순서</button>
+            {% endif %}
+        {% endif %}
+        </div>
+    </div>
+</center>
+            {% comment %} <!-- Icon Divider -->
             <div class="divider-custom">
                 <div class="divider-custom-line"></div>
                 <div class="divider-custom-icon">
                     <i class="fas fa-star"></i>
                 </div>
                 <div class="divider-custom-line"></div>
-            </div>
-    
+            </div> {% endcomment %}
+            <br><br>
             <!-- Portfolio Grid Items -->
             <div class="row">
 
@@ -117,9 +146,14 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-8">
+
                             <!-- Portfolio Modal - Title -->
-                            <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">옷입은 이력서</h2>
-                            <!-- Icon Divider -->
+                            <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{resume_merged.resume.resume_name}}</h2>
+
+                            <hr class="line">
+                            <br>
+
+                            {% comment %} <!-- Icon Divider -->
                             <div class="divider-custom">
                                 <div class="divider-custom-line"></div>
                                 <div class="divider-custom-icon">
@@ -127,23 +161,29 @@
                                 </div>
                                 <div class="divider-custom-line"></div>
                             </div>
-                            <!-- Portfolio Modal - Image -->
-                            <img class="img-fluid rounded mb-5" src="{{resume_merged.img_file.url}}" alt="이력서 상세보기">
+                             {% endcomment %}
 
                             <!-- Portfolio Modal - Text -->
+
+                            <span id="count-{{resume_merged.resume.pk}}" class="badge badge-secondary likecount">좋아요 {{ resume_merged.resume.like_count }}개</span>
+                            <span class="badge badge-secondary downloadcount"> 다운로드 {{ resume_merged.resume.download_count }}번</span>
+                            
+                            {% comment %} <button class="btn btn-primary" href="#" data-dismiss="modal">
+                                <i class="fas fa-times fa-fw"></i>
+                                닫기
+                            </button> {% endcomment %}
+
+                            <!-- Portfolio Modal - Image -->
+                            <img class="img-fluid rounded mb-5" src="{{resume_merged.img_file.url}}" alt="이력서 상세보기">
+                            
+                            <button type="button" class="like btn btn-primary likebutton" name="{{resume_merged.resume.pk}}">LIKE</button>
                             <button class="btn btn-primary" onclick="location.href='{% url 'docxmerge:download' resume_merged.pk 'docx' %}'" data-dismiss="modal">
                                 DOCX로 구매
                             </button>
                             <button class="btn btn-primary" onclick="location.href='{% url 'docxmerge:download' resume_merged.pk 'pdf' %}'" data-dismiss="modal">
                                 PDF로 구매
                             </button>
-                            <button type="button" class="like btn btn-primary" name="{{resume_merged.resume.pk}}">Like</button>
-                            <span id="count-{{resume_merged.resume.pk}}" class="badge badge-secondary">좋아요 {{ resume_merged.resume.like_count }}개</span>
-                            <span class="badge badge-secondary">다운로드 {{ resume_merged.resume.download_count }}번</span>
-                            <button class="btn btn-primary" href="#" data-dismiss="modal">
-                                <i class="fas fa-times fa-fw"></i>
-                                닫기
-                            </button>
+                        </hr>
                         </div>
                     </div>
                 </div>
@@ -157,34 +197,8 @@
         </div>
     </section>
 
-    <div class="input-group mb-3" id="sort-select">
-        <select class="custom-select" id="inputGroupSelect01" onchange="location = this.value;">
-            {% if order_by == 'download_num' %}
-                <option value="{% url 'docxmerge:result' resume_info.pk 'download_num' order %}" selected>다운로드순</option>
-                <option value="{% url 'docxmerge:result' resume_info.pk 'like_num' order %}">좋아요순</option>
-            {% else %}
-                <option value="{% url 'docxmerge:result' resume_info.pk 'download_num' order %}">다운로드순</option>
-                <option value="{% url 'docxmerge:result' resume_info.pk 'like_num' order %}" selected>좋아요순</option>
-            {% endif %}
-        </select>
-        <div class="input-group-append">
-        {% if order == 0 %}
-            {% if order_by == 'download_num' %}
-                <button class="btn btn-outline-secondary input-group-text" onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'download_num' 1 %}'">정렬순서</button>
-            {% else %}
-                <button class="btn btn-outline-secondary input-group-text" onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'like_num' 1 %}'">정렬순서</button>
-            {% endif %}
-        {% else %}
-            {% if order_by == 'download_num' %}
-                <button class="btn btn-outline-secondary input-group-text" onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'download_num' 0 %}'">정렬순서</button>
-            {% else %}
-                <button class="btn btn-outline-secondary input-group-text" onclick="location.href='{% url 'docxmerge:result' resume_info.pk 'like_num' 0 %}'">정렬순서</button>
-            {% endif %}
-        {% endif %}
-        </div>
-    </div>
-</header>
-
+{% comment %} </header> {% endcomment %}
+<br>
 </body>
 </html>
 {% endblock %}
