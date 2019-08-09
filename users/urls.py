@@ -16,6 +16,7 @@ Including another URLconf
 from django.urls import path, include
 from allauth.account.views import SignupView, LoginView, LogoutView
 from . import views
+from users import urls
 
 app_name = 'users'
 urlpatterns = [
@@ -24,4 +25,5 @@ urlpatterns = [
     path('logout', LogoutView.as_view(), name="account_logout"),    # account_logout
     path('mypage', views.mypage, name="mypage"),
     path('coin_add/<int:amount>', views.coin_add, name="coin_add"),
+    path('coin_sub/<int:amount>', views.coin_sub, name="coin_sub"),
 ]

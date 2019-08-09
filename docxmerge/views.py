@@ -11,8 +11,9 @@ from .models import Resume, ResumeInfo, ResumeMerged
 from .forms import ResumeInfoForm, UploadFileForm
 from .resume_module import merge
 from users.models import User
-
-# @login_required
+from users.views import coin_add
+from users.views import coin_sub
+@login_required
 def resume_make(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
@@ -88,7 +89,6 @@ def resume_upload(request):
 def resume_download(request, pk, type):
     resume_merged = get_object_or_404(ResumeMerged, pk=pk)
     cost = resume_merged.resume.coin
-    request.user.coin_sub(cost)     # coin 차감
     if type == 'pdf':
         content_type = 'application/force-download'
     else:
@@ -98,7 +98,11 @@ def resume_download(request, pk, type):
     response = HttpResponse(wrapper, content_type=content_type)
     filename = resume_merged.user.username
     response['Content-Disposition'] = 'inline; filename=' + filename + '.' + type
-
     resume = get_object_or_404(Resume, pk=resume_merged.resume.pk)
     resume_download, resume_download_created = resume.download_set.get_or_create(user=request.user)
+    if resume_download_created:
+        download_possible = request.user.coin_sub(cost)     # coin 차감
+        if not download_possible:
+            resume_download.delete()
+            return redirect('users:mypage')
     return response
