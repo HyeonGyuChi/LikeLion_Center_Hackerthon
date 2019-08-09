@@ -19,9 +19,9 @@ from . import views
 
 app_name = 'users'
 urlpatterns = [
-    path('signup', SignupView.as_view(), name="account_signup"),    # account_signup
-    path('login', LoginView.as_view(), name="account_login"),       #  account_login
-    path('logout', LogoutView.as_view(), name="account_logout"),    # account_logout
+#    path('signup', SignupView.as_view(), name="account_signup"),    # account_signup
+#    path('login', LoginView.as_view(), name="account_login"),       #  account_login
+#    path('logout', LogoutView.as_view(), name="account_logout"),    # account_logout
     path('mypage', views.mypage, name="mypage"),
     path('coin_add/<int:amount>', views.coin_add, name="coin_add"),
 ]
