@@ -36,8 +36,30 @@ class ResumeInfo(models.Model):
     writer_name = models.CharField(max_length=20)
     writer_address = models.TextField()
     writer_phone = models.CharField(max_length=13)
-    writer_email = models.CharField(max_length=30)
-    
+    writer_email = models.CharField(default='', blank=True, max_length=30)
+
+    writer_career_whenstart = models.CharField(default='', blank=True, max_length=9)
+    writer_career_whenstop = models.CharField(default='', blank=True, max_length=9)
+    writer_career_name = models.CharField(default='', blank=True, max_length= 10)
+    writer_career_detail = models.TextField(default='', blank=True)
+    writer_career_title = models.CharField(default='', blank=True, max_length=10)
+
+    writer_school_whenstart = models.CharField(default='', blank=True,max_length=9)
+    writer_school_whenstop = models.CharField(default='', blank=True,max_length=9)
+    writer_school_name = models.CharField(default='', blank=True,max_length= 12)
+    writer_school_study = models.TextField(default='', blank=True)
+
+    writer_prizeandetc_whenstart = models.CharField(default='', blank=True,max_length=9)
+    writer_prizeandetc_whenstop = models.CharField(default='', blank=True,max_length=9)
+    writer_prizeandetc_name = models.CharField(default='', blank=True,max_length= 10)
+    writer_prizeandetc_detail = models.TextField(default='', blank=True)
+
+    writer_ability_name = models.CharField(default='', blank=True,max_length= 25)
+
+
+
+
+
     def __str__(self):
         return ("{} - {}").format(self.writer_name, str(self.date))
 
