@@ -1,52 +1,66 @@
+{% extends 'base.html' %}
+{% block contents %}
+
 {% load i18n %}
 {% load account socialaccount %}
 {% providers_media_js %}
 {% load static %}
 
-
 <!DOCTYPE html>
-<html lang="kr">
-  <head>
-      <meta charset="UTF-8">
-      <title>이옷 | Login</title>
-  </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>이옷 | Login</title>
+    <script>
+        $(document).ready(function(){
+            $('#login-page').addClass('loginTitleClass');
+        })
+    </script>
+</head>
+<body>
+<link rel='stylesheet' type='text/css' href="{% static 'account/css/login.css' %}?ver=1">
 
-  <body>
-    <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' type='text/css' href="{% static 'users/css/bootstrap-social.css' %}">
-    <link rel='stylesheet' type='text/css' href="{% static 'users/css/login.css' %}?ver=1">
-  
-  <div class="container">
-      <center><a href="{% url 'index'%}"><img src="{% static 'users/images/main-logo.png'%}" width="120" height="100"  alt="" ></a></center>
-      <br><br>
-    {% get_providers as socialaccount_providers %}
-
-    
-
+{% comment %} <div class="container" id="login-box-container"> {% endcomment %}
+<a id="login-page" href="{{ account_login }}"><strong>로그인</strong><a>
+    {% comment %} <a href="{% url 'index' %}"><img src="{% static 'account/images/main-logo.png'%}" width="120" height="100"  alt="" ></a></center> {% endcomment %}
+<center>
     <div class ="login-box">
-    <center>
-      <form class="login" method="POST" action="{% url 'account_login' %}">
-        
-        {% csrf_token %}
-        {{ form.as_p }}
-        
-        {% if redirect_field_value %}
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-        <button class="btn btn-light" type="submit">LOGIN</button>
-      </form>
-    </center>
-    <br>
-    <hr class="line">
-    <p class ="go-signup">
-        <a class ="go-signup" href="#">Don't have an account?</a>
-        <a class ="go-signup" href="{{ signup_url }}">회원가입</a>
-    </p>
-    
-    <a href="{% provider_login_url 'google' %}" class="btn btn-block btn-social btn-lg btn-google" onclick="_gaq.push(['_trackEvent', 'btn-social', 'click', 'btn-lg']);"><i class="fa fa-google"></i>Sign in with Google</a>
-    <br>
+      <br><br>
+        <form method="POST" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+                <!-- <table>
+                    <tr>
+                        <td>
+                            <input class="input-login" name="login" type="email" placeholder="Email address" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input class="input-login" name="password" type="password" placeholder="Password">
+                        </td>
+                    </tr>
+                <br><br>
+                
+                </table> -->
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <br>
+                <button  class="btn btn-light"  type="submit">로그인</button>
+            </form>
+
+        <br>
+        <hr class="line">
+        <p class ="go-signup">
+            <div class ="go-signup"><a class ="go-signup" href="{% provider_login_url 'google' %}">구글 로그인</a></div>
+            <div class ="go-signup"><a class ="go-signup" href="{% url 'users:account_signup' %}">Don't have an account?</a></div>
+        </p>
+        <br>
     </div>
-  </div>
-  </body>
+{% comment %} </div> {% endcomment %}
+    </center>
+</body>
 </html>
+
+{% endblock %}
