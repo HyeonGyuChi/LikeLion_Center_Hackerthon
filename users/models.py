@@ -15,5 +15,6 @@ class User(AbstractEmailUser):
         self.save()
     
     def coin_sub(self, amount):
-        self.usercoin -= amount
-        self.save()
+        if not self.usercoin - amount < 0:
+            self.usercoin -= amount
+            self.save()
