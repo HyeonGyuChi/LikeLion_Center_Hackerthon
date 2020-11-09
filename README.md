@@ -18,6 +18,16 @@ python manage.py migrate
 python manage.py collectstatic
 
 ```
+## Quick Start Bug handler
+``` shell
+DLL 을 참조할 수 없습니다
+```
+증상원인 - Pywin32 모듈문제
+
+해결방법 - 관련 확장 종속라이브러리 설치하기
+[github link](https://github.com/mhammond/pywin32/releases/tag/b224)
+
+
 
 
 ## Apps informations
@@ -40,6 +50,10 @@ docxmerge : 이력서 템플릿과 사용자 정보를 합쳐서 보여주는 Ap
 
 `word` : docx > xml or xml to docx 과정에서 생성되는 임시 파일들이 저장되는 장소.
 > 즉, word는 신경 쓰지 않아도 된다.
+
+`Demo_Assets` : Demo test용 자원, demo templates으로 사용할 수 있는 템플릿 docx파일.
+> 해당, demo_templates.docx를 이용해 파일업로드 후 작동테스트
+
 
 
 
