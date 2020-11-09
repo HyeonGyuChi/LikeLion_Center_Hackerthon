@@ -1,9 +1,11 @@
 import os, zipfile, base64, hashlib
 from datetime import datetime, time
 from threading import Thread
+from time import sleep
 
 import comtypes.client
 from win32com.client import pythoncom
+import win32com.client
 from django.conf import settings
 from Crypto import Random
 from Crypto.Cipher import AES
@@ -50,7 +52,12 @@ def docx_to_pdf(docx, pdf):
     wdFormatPDF = 17
     in_file = os.path.abspath(docx)
     out_file = os.path.abspath(pdf)
-    word = comtypes.client.CreateObject('Word.Application')
+    # word = comtypes.client.CreateObject('Word.Application')
+    
+    word = win32com.client.Dispatch('Word.Application')
+    # word.Visible = True # make word visible before open a new document
+    sleep(3) # wait for the COM Server to prepare well
+
     doc = word.Documents.Open(in_file)
     doc.SaveAs(out_file, FileFormat=wdFormatPDF)
     doc.Close()
